@@ -4,6 +4,7 @@
  * @var $content string
  */
 
+use app\models\User;
 use yii\bootstrap\Alert;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -130,7 +131,14 @@ $bundle = \app\assets\AppAsset::register($this);
                     [
                         'label' => Yii::t('app', 'Employees'),
                         'icon' => 'fa fa-users',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
                         'url' => ['/user'],
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Department'),
+                        'icon' => 'fa fa-users',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'url' => ['/department'],
                     ],
                 ],
             ]);
@@ -156,7 +164,6 @@ $bundle = \app\assets\AppAsset::register($this);
         </div>
         <div id="content">
             <h1>
-                <?php echo $this->title ?>
                 <?php if (isset($this->params['subtitle'])): ?>
                     <small><?php echo $this->params['subtitle'] ?></small>
                 <?php endif; ?>

@@ -28,7 +28,8 @@ class m191002_140001_create_table_user extends Migration
         ]);
 
         $this->createTable('{{%user_profile}}', [
-            'user_id' => $this->primaryKey(),
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer(),
             'firstname' => $this->string(),
             'middlename' => $this->string(),
             'lastname' => $this->string(),
@@ -38,7 +39,7 @@ class m191002_140001_create_table_user extends Migration
             'gender' => $this->smallInteger(1)
         ]);
 
-        $this->addForeignKey('fk_user', '{{%user_profile}}', 'user_id', '{{%user}}', 'id', 'cascade', 'cascade');
+        $this->addForeignKey('fk_user', '{{%user_profile}}', 'user_id', '{{%user}}', 'id');
 
     }
 

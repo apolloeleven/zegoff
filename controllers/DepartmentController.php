@@ -2,22 +2,23 @@
 
 namespace app\controllers;
 
-
-use app\models\search\UserSearch;
 use app\models\User;
-use app\models\UserForm;
 use Yii;
+use app\models\Department;
+use app\models\search\DepartmentSearch;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * DepartmentController implements the CRUD actions for Department model.
  */
-class UserController extends Controller
+class DepartmentController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
@@ -31,21 +32,21 @@ class UserController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all User models.
+     * Lists all Department models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new DepartmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,10 +56,10 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Department model.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -68,72 +69,70 @@ class UserController extends Controller
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \yii\base\Exception
+     * Creates a new Department model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
     public function actionCreate()
     {
-        $model = new UserForm();
-        $model->setScenario('create');
+        $model = new Department();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
         ]);
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Department model.
+     * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException
-     * @throws \yii\base\Exception
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $model = new UserForm();
-        $model->setModel($this->findModel($id));
+        $model = $this->findModel($id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
         ]);
     }
 
     /**
-     * @param $id
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * Deletes an existing Department model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
-        Yii::$app->authManager->revokeAll($id);
-        $this->findModel($id)->delete();
+        $this->findModel($id)->markDeleted();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Department model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Department the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Department::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

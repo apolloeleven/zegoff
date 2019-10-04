@@ -9,7 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
         'api' => [
@@ -59,7 +59,7 @@ $config = [
             'assignmentTable' => '{{%rbac_auth_assignment}}',
             'ruleTable' => '{{%rbac_auth_rule}}'
         ],
-        'urlManager' => require(__DIR__.'/_urlManager.php'),
+        'urlManager' => require(__DIR__ . '/_urlManager.php'),
     ],
     'params' => $params,
 ];
