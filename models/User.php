@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use app\models\query\UserQuery;
@@ -38,30 +39,6 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_USER = 'user';
     const ROLE_MANAGER = 'manager';
     const ROLE_ADMINISTRATOR = 'administrator';
-
-    // AIM Wizard Roles
-    const ROLE_SUSTAINABILITY_ANALYST = 'sustainability_analyst';
-    const ROLE_SUSTAINABILITY_MANAGER = 'sustainability_manager';
-    const ROLE_CREDIT_ANALYST = 'credit_analyst';
-    const ROLE_CREDIT_MANAGER = 'credit_manager';
-    const ROLE_PORTFOLIO_MANAGER= 'portfolio_manager';
-    const ROLE_TEAM = 'team';
-    const ROLE_COMPLIANCE = 'compliance';
-
-
-    const PERMISSION_SUSTAINABILITY_ADD_REVIEW = 'sustainability_add_review';
-    const PERMISSION_SUSTAINABILITY_EDIT_REVIEW = 'sustainability_edit_review';
-    const PERMISSION_SUSTAINABILITY_ADD_FIELDS_VALUES = 'sustainability_add_fields_values';
-    const PERMISSION_SUSTAINABILITY_APPROVE_VIA_PEER_REVIEW = 'sustainability_approve_via_peer_review';
-    const PERMISSION_SUSTAINABILITY_ADD_NEW_ENGAGEMENT = 'sustainability_add_new_engagement';
-    const PERMISSION_SUSTAINABILITY_CREATE_CUSTOM_REPORT = 'sustainability_create_custom_report';
-    const PERMISSION_SUSTAINABILITY_MANAGE_APPROVAL_STATUS = 'sustainability_manage_approval_status';
-    const PERMISSION_CREDIT_ADD_REVIEW = 'credit_add_review';
-    const PERMISSION_CREDIT_EDIT_REVIEW = 'credit_edit_review';
-    const PERMISSION_CREDIT_ADD_FIELDS_VALUES = 'credit_add_fields_values';
-    const PERMISSION_CREDIT_CREATE_CUSTOM_REPORT = 'credit_create_custom_report';
-    const PERMISSION_CREDIT_MANAGE_APPROVAL_STATUS = 'credit_manage_approval_status';
-
 
     // Events
     const EVENT_AFTER_SIGNUP = 'afterSignup';
@@ -252,9 +229,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
+     * @param $password
+     * @throws \yii\base\Exception
      */
     public function setPassword($password)
     {
@@ -275,21 +251,12 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Creates user profile and application event
      * @param array $profileData
+     * @throws \Exception
      */
     public function afterSignup(array $profileData = [])
     {
         $this->refresh();
-        Yii::$app->commandBus->handle(new AddToTimelineCommand([
-            'category' => 'user',
-            'event' => 'signup',
-            'data' => [
-                'public_identity' => $this->getPublicIdentity(),
-                'user_id' => $this->getId(),
-                'created_at' => $this->created_at
-            ]
-        ]));
         $profile = new UserProfile();
         $profile->locale = Yii::$app->language;
         $profile->load($profileData, '');
@@ -361,9 +328,9 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getUsersByRole($role)
     {
 
-        $role = "('". implode('\',\'',$role) ."')";
+        $role = "('" . implode('\',\'', $role) . "')";
         $users = User::find()->active()
-            ->innerJoin('rbac_auth_assignment rbac', 'rbac.user_id = user.id AND rbac.item_name IN '.$role)
+            ->innerJoin('rbac_auth_assignment rbac', 'rbac.user_id = user.id AND rbac.item_name IN ' . $role)
             ->all();
         return $users;
     }

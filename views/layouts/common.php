@@ -128,16 +128,10 @@ $bundle = \app\assets\AppAsset::register($this);
                 'activeCssClass' => 'opened',
                 'items' => [
                     [
-                        'label' => Yii::t('app', 'Timeline'),
-                        'icon' => 'fa fa-bar-chart-o',
-                        'url' => ['/timeline-event/index'],
-                        'badgeBgClass' => 'label-success',
+                        'label' => Yii::t('app', 'Employees'),
+                        'icon' => 'fa fa-users',
+                        'url' => ['/user'],
                     ],
-                    [
-                        'label' => Yii::t('app', 'Menu'),
-                        'url' => ['/menu'],
-                        'icon' => 'fa fa-bars'
-                    ]
                 ],
             ]);
             ?>
