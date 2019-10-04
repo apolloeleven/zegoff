@@ -18,7 +18,9 @@
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "vlucas/phpdotenv": "^3.6@dev"
+        "vlucas/phpdotenv": "^3.6@dev",
+        "fxp/composer-asset-plugin": "^1.4@dev",
+        "trntv/yii2-datetime-widget": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -10,7 +10,7 @@ $config = [
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
         '@tests' => '@app/tests',
     ],
     'components' => [
@@ -35,13 +35,18 @@ $config = [
         ]
     ],
     'params' => $params,
-    /*
     'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
+        'migrate' => [
+            'class' => yii\console\controllers\MigrateController::class,
+            'migrationPath' => '@app/migrations/db',
+            'migrationTable' => '{{%system_db_migration}}'
+        ],
+        'rbac-migrate' => [
+            'class' => app\controllers\console\RbacMigrateController::class,
+            'migrationPath' => '@app/migrations/rbac/',
+            'migrationTable' => '{{%system_rbac_migration}}',
         ],
     ],
-    */
 ];
 
 if (YII_ENV_DEV) {
