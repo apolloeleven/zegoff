@@ -2,14 +2,12 @@
 
 namespace app\models\query;
 
-use app\models\Department;
-
 /**
- * This is the ActiveQuery class for [[Department]].
+ * This is the ActiveQuery class for [[\app\models\BankHoliday]].
  *
- * @see Department
+ * @see \app\models\BankHoliday
  */
-class DepartmentQuery extends \yii\db\ActiveQuery
+class BankHolidayQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -18,7 +16,7 @@ class DepartmentQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Department[]|array
+     * @return \app\models\BankHoliday[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +25,7 @@ class DepartmentQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Department|array|null
+     * @return \app\models\BankHoliday|array|null
      */
     public function one($db = null)
     {
@@ -35,7 +33,7 @@ class DepartmentQuery extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return DepartmentQuery
+     * @return BankHolidayQuery
      */
     public function notDeleted()
     {

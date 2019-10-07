@@ -22,7 +22,7 @@ $bundle = \app\assets\AppAsset::register($this);
 <div class="wrapper">
     <!-- header logo: style can be found in header.less -->
     <nav class="navbar navbar-default navbar-header header">
-        <a class="navbar-brand" href="<?php echo Yii::getAlias('@app') ?>">
+        <a class="navbar-brand" href="/">
             <div class="navbar-brand-img"></div>
             <!--<img src="img/logo/lobiadmin-logo-text-white-32.png" class="hidden-xs" alt="" />-->
         </a>
@@ -140,6 +140,12 @@ $bundle = \app\assets\AppAsset::register($this);
                         'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
                         'url' => ['/department'],
                     ],
+                    [
+                        'label' => Yii::t('app', 'Bank Holidays'),
+                        'icon' => 'fa fa-users',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'url' => ['/bank-holiday'],
+                    ],
                 ],
             ]);
             ?>
@@ -163,12 +169,6 @@ $bundle = \app\assets\AppAsset::register($this);
             ]) ?>
         </div>
         <div id="content">
-            <h1>
-                <?php if (isset($this->params['subtitle'])): ?>
-                    <small><?php echo $this->params['subtitle'] ?></small>
-                <?php endif; ?>
-            </h1>
-
             <?php if (Yii::$app->session->hasFlash('alert')): ?>
                 <?php echo Alert::widget([
                     'body' => ArrayHelper::getValue(Yii::$app->session->getFlash('alert'), 'body'),
