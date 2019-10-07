@@ -56,6 +56,22 @@ class HolidayController extends Controller
     }
 
     /**
+     * @return string
+     */
+    public function actionOwnRequest()
+    {
+        $searchModel = new HolidaySearch();
+        $queryParams['HolidaySearch'] = Yii::$app->request->get('HolidaySearch');
+        $queryParams['HolidaySearch']['user_id'] = Yii::$app->user->id;
+        $dataProvider = $searchModel->search($queryParams);
+
+        return $this->render('own-request', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single Holiday model.
      * @param integer $id
      * @return mixed

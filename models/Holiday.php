@@ -56,6 +56,32 @@ class Holiday extends \yii\db\ActiveRecord
     }
 
     /**
+     * Returns user statuses list
+     * @return array|mixed
+     */
+    public static function statuses()
+    {
+        return [
+            self::STATUS_PENDING => Yii::t('app', 'Pending'),
+            self::STATUS_REJECTED => Yii::t('app', 'Rejected'),
+            self::STATUS_ACCEPTED => Yii::t('app', 'Accepted')
+        ];
+    }
+
+    /**
+     * Returns user statuses list
+     * @return array|mixed
+     */
+    public static function types()
+    {
+        return [
+            self::TYPE_PERSONAL => Yii::t('app', 'Personal'),
+            self::TYPE_BUSINESS => Yii::t('app', 'Business'),
+            self::TYPE_CUSTOM => Yii::t('app', env('CUSTOM_HOLIDAY_NAME', 'Custom'))
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
@@ -153,5 +179,17 @@ class Holiday extends \yii\db\ActiveRecord
         $this->deleted_at = time();
         $this->deleted_by = Yii::$app->user->id;
         $this->save();
+    }
+
+    public function getTypeText()
+    {
+        $types = Holiday::types();
+        return isset($types[$this->type]) ? $types[$this->type] : $this->type;
+    }
+
+    public function getStatusText()
+    {
+        $statuses = Holiday::statuses();
+        return isset($statuses[$this->status]) ? $statuses[$this->status] : $this->status;
     }
 }

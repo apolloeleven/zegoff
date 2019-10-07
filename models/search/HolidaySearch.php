@@ -56,7 +56,7 @@ class HolidaySearch extends Holiday
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $this->start_date = null;
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
