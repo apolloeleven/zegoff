@@ -6,6 +6,7 @@ use app\models\query\DepartmentQuery;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%department}}".
@@ -86,5 +87,10 @@ class Department extends \yii\db\ActiveRecord
         $this->deleted_at = time();
         $this->deleted_by = Yii::$app->user->id;
         $this->save();
+    }
+
+    public static function getDropdown()
+    {
+        return ArrayHelper::map(Department::find()->notDeleted()->all(), 'id', 'name');
     }
 }

@@ -16,6 +16,9 @@ class UserForm extends Model
     public $email;
     public $password;
     public $status;
+    public $position;
+    public $department_id;
+    public $days_left;
     public $roles;
 
     private $model;
@@ -27,6 +30,8 @@ class UserForm extends Model
     {
         return [
             ['username', 'filter', 'filter' => 'trim'],
+            [['department_id'], 'integer'],
+            [['days_left'], 'safe'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => User::class, 'filter' => function ($query) {
                 if (!$this->getModel()->isNewRecord) {
@@ -48,6 +53,7 @@ class UserForm extends Model
             ['password', 'string', 'min' => 6],
 
             [['status'], 'integer'],
+            [['position'], 'integer'],
             [['roles'], 'each',
                 'rule' => ['in', 'range' => ArrayHelper::getColumn(
                     Yii::$app->authManager->getRoles(),
@@ -77,6 +83,9 @@ class UserForm extends Model
         $this->username = $model->username;
         $this->email = $model->email;
         $this->status = $model->status;
+        $this->position = $model->position;
+        $this->department_id = $model->department_id;
+        $this->days_left = $model->days_left;
         $this->model = $model;
         $this->roles = ArrayHelper::getColumn(
             Yii::$app->authManager->getRolesByUser($model->getId()),
@@ -95,7 +104,10 @@ class UserForm extends Model
             'email' => Yii::t('app', 'Email'),
             'status' => Yii::t('app', 'Status'),
             'password' => Yii::t('app', 'Password'),
-            'roles' => Yii::t('app', 'Roles')
+            'roles' => Yii::t('app', 'Roles'),
+            'position' => Yii::t('app', 'Position'),
+            'department_id' => Yii::t('app', 'Department'),
+            'days_left' => Yii::t('app', 'Days Left'),
         ];
     }
 

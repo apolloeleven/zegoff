@@ -5,6 +5,7 @@ namespace app\models;
 use app\models\query\UserQuery;
 use Yii;
 use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -27,6 +28,9 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property integer $logged_at
  * @property string $password write-only password
+ * @property float $days_left
+ * @property integer $department_id
+ * @property integer $position
  *
  * @property \app\models\UserProfile $userProfile
  */
@@ -39,6 +43,12 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_USER = 'user';
     const ROLE_MANAGER = 'manager';
     const ROLE_ADMINISTRATOR = 'administrator';
+
+    // User Type
+    const POSITION_EMPLOYEE = 1;
+    const POSITION_HR = 2;
+    const POSITION_HEAD_OF_DEP = 3;
+    const POSITION_CEO = 4;
 
     // Events
     const EVENT_AFTER_SIGNUP = 'afterSignup';
@@ -66,7 +76,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
             'auth_key' => [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [
@@ -109,8 +119,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'unique'],
+            [['department_id'], 'integer'],
+            [['days_left'], 'safe'],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE],
+            ['position', 'default', 'value' => self::POSITION_EMPLOYEE],
             ['status', 'in', 'range' => array_keys(self::statuses())],
+            ['position', 'in', 'range' => array_keys(self::positions())],
             [['username'], 'filter', 'filter' => '\yii\helpers\Html::encode']
         ];
     }
@@ -128,6 +142,9 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => Yii::t('app', 'Created at'),
             'updated_at' => Yii::t('app', 'Updated at'),
             'logged_at' => Yii::t('app', 'Last login'),
+            'position' => Yii::t('app', 'Position'),
+            'department_id' => Yii::t('app', 'Department'),
+            'days_left' => Yii::t('app', 'Days Left'),
         ];
     }
 
@@ -247,6 +264,20 @@ class User extends ActiveRecord implements IdentityInterface
             self::STATUS_NOT_ACTIVE => Yii::t('app', 'Not Active'),
             self::STATUS_ACTIVE => Yii::t('app', 'Active'),
             self::STATUS_DELETED => Yii::t('app', 'Deleted')
+        ];
+    }
+
+    /**
+     * Returns user statuses list
+     * @return array|mixed
+     */
+    public static function positions()
+    {
+        return [
+            self::POSITION_EMPLOYEE => Yii::t('app', 'Employee'),
+            self::POSITION_HR => Yii::t('app', 'HR'),
+            self::POSITION_HEAD_OF_DEP => Yii::t('app', 'Head Of Department'),
+            self::POSITION_CEO => Yii::t('app', 'CEO')
         ];
     }
 
