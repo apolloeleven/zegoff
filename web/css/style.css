@@ -101,6 +101,13 @@ body .table .bootstrap-datetimepicker-widget {
     width: 4px;
 }
 
+.menu {
+    width: 300px;
+}
+
+#main {
+    margin-left: 300px;
+}
 
 .menu nav ul > li > a {
     white-space: normal;
@@ -141,4 +148,14 @@ body .table .bootstrap-datetimepicker-widget {
     .modal-dialog {
         width: 800px;
     }
+}
+
+.product-group-icon {
+    height: 22px;
+    margin-top: -6px;
+    margin-left: -5px;
+}
+
+.header .navbar-brand .navbar-brand-img {
+    background-image: url(../img/logo/logo.png);
 }

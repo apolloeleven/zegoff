@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "webpack --progress",
+    "watch": "webpack --progress --watch"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-latest": "^6.24.0",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^2.0.0",
+    "less": "^2.7.2",
+    "less-loader": "^3.0.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "npm": "^6.0.1",
+    "youtube-player": "^5.5.2"
+  }
+}

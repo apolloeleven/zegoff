@@ -19,22 +19,32 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+
     public $css = [
-        'css/lobiadmin-with-plugins.css',
+        'bundle/lobiadmin.css',
         'css/style.css',
         'css/bootstrap-tour.min.css',
     ];
     public $js = [
         'js/lobiplugins/lobibox.js',
+        'js/highlight.pack.js',
+        'js/ck-config.js',
         'js/config.js',
         'js/lobiadmin.js',
         'js/lobiadmin-app.js',
+        'js/mark.js',
+        'js/app.js',
+        'js/bootstrap-tour.min.js',
+        'js/lobiplugins/bootstrap-datepicker.js',
+        'js/modal.js',
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
         'yii\web\JqueryAsset',
+        'yii\jui\JuiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-        FontAwesome::class
+        FontAwesome::class,
+        Html5shiv::class,
     ];
 }

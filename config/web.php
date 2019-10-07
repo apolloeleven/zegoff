@@ -27,6 +27,16 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,   // do not publish the bundle
+                    'css' => [
+                        'css/bootstrap.min.css',
+                    ]
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
