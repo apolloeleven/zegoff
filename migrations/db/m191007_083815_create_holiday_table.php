@@ -24,7 +24,7 @@ class m191007_083815_create_holiday_table extends Migration
             'going_to' => $this->string(),
             'trip_reason' => $this->text(),
             'travel_coast' => $this->decimal(20, 2),
-            'spink_income' => $this->decimal(20, 2),
+            'income' => $this->decimal(20, 2),
             'accommodation' => $this->text(),
             'client_entertainment' => $this->text(),
             'currency_code' => $this->string(10),

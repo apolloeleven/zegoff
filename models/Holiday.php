@@ -18,7 +18,7 @@ use Yii;
  * @property string $going_to
  * @property string $trip_reason
  * @property string $travel_coast
- * @property string $spink_income
+ * @property string $income
  * @property string $accommodation
  * @property string $client_entertainment
  * @property string $currency_code
@@ -47,12 +47,109 @@ class Holiday extends \yii\db\ActiveRecord
     const TYPE_BUSINESS = 2;
     const TYPE_CUSTOM = 3;
 
+    const SCENARIO_PERSONAL = '1';
+    const SCENARIO_BUSINESS = '2';
+    const SCENARIO_CUSTOM = '3';
+    const SCENARIO_DEFAULT = 'default';
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return '{{%holiday}}';
+    }
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_PERSONAL => [
+                'user_id',
+                'type',
+                'status',
+                'title',
+                'start_date',
+                'end_date',
+                'description',
+            ],
+            self::SCENARIO_BUSINESS => [
+                'user_id',
+                'type',
+                'status',
+                'start_date',
+                'end_date',
+                'going_to',
+                'trip_reason',
+                'travel_coast',
+                'income',
+                'accommodation',
+                'client_entertainment',
+                'currency_code',
+                'date_require',
+            ],
+            self::SCENARIO_CUSTOM => [
+                'user_id',
+                'type',
+                'status',
+                'title',
+                'start_date',
+                'end_date',
+                'description',
+            ]
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['user_id', 'type', 'status', 'created_at', 'updated_at', 'deleted_at', 'confirmed_at', 'created_by', 'updated_by', 'deleted_by', 'confirmed_by'], 'integer'],
+            [['start_date', 'end_date', 'date_require'], 'safe'],
+            [['description', 'trip_reason', 'accommodation', 'client_entertainment'], 'string'],
+            [['travel_coast', 'income'], 'number'],
+            [['title', 'going_to'], 'string', 'max' => 255],
+            [['currency_code'], 'string', 'max' => 10],
+            [['confirmed_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['confirmed_by' => 'id']],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+            [['deleted_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deleted_by' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'type' => Yii::t('app', 'Type'),
+            'status' => Yii::t('app', 'Status'),
+            'title' => Yii::t('app', 'Title'),
+            'start_date' => Yii::t('app', 'Start Date'),
+            'end_date' => Yii::t('app', 'End Date'),
+            'description' => Yii::t('app', 'Description'),
+            'going_to' => Yii::t('app', 'Going To'),
+            'trip_reason' => Yii::t('app', 'Trip Reason'),
+            'travel_coast' => Yii::t('app', 'Travel Coast'),
+            'income' => Yii::t('app', 'Company Income'),
+            'accommodation' => Yii::t('app', 'Accommodation'),
+            'client_entertainment' => Yii::t('app', 'Client Entertainment'),
+            'currency_code' => Yii::t('app', 'Currency Code'),
+            'date_require' => Yii::t('app', 'Date Require'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'deleted_at' => Yii::t('app', 'Deleted At'),
+            'confirmed_at' => Yii::t('app', 'Confirmed At'),
+            'created_by' => Yii::t('app', 'Created By'),
+            'updated_by' => Yii::t('app', 'Updated By'),
+            'deleted_by' => Yii::t('app', 'Deleted By'),
+            'confirmed_by' => Yii::t('app', 'Confirmed By'),
+        ];
     }
 
     /**
@@ -78,58 +175,6 @@ class Holiday extends \yii\db\ActiveRecord
             self::TYPE_PERSONAL => Yii::t('app', 'Personal'),
             self::TYPE_BUSINESS => Yii::t('app', 'Business'),
             self::TYPE_CUSTOM => Yii::t('app', env('CUSTOM_HOLIDAY_NAME', 'Custom'))
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['user_id', 'type', 'status', 'created_at', 'updated_at', 'deleted_at', 'confirmed_at', 'created_by', 'updated_by', 'deleted_by', 'confirmed_by'], 'integer'],
-            [['start_date', 'end_date', 'date_require'], 'safe'],
-            [['description', 'trip_reason', 'accommodation', 'client_entertainment'], 'string'],
-            [['travel_coast', 'spink_income'], 'number'],
-            [['title', 'going_to'], 'string', 'max' => 255],
-            [['currency_code'], 'string', 'max' => 10],
-            [['confirmed_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['confirmed_by' => 'id']],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['deleted_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deleted_by' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'type' => Yii::t('app', 'Type'),
-            'status' => Yii::t('app', 'Status'),
-            'title' => Yii::t('app', 'Title'),
-            'start_date' => Yii::t('app', 'Start Date'),
-            'end_date' => Yii::t('app', 'End Date'),
-            'description' => Yii::t('app', 'Description'),
-            'going_to' => Yii::t('app', 'Going To'),
-            'trip_reason' => Yii::t('app', 'Trip Reason'),
-            'travel_coast' => Yii::t('app', 'Travel Coast'),
-            'spink_income' => Yii::t('app', 'Spink Income'),
-            'accommodation' => Yii::t('app', 'Accommodation'),
-            'client_entertainment' => Yii::t('app', 'Client Entertainment'),
-            'currency_code' => Yii::t('app', 'Currency Code'),
-            'date_require' => Yii::t('app', 'Date Require'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'deleted_at' => Yii::t('app', 'Deleted At'),
-            'confirmed_at' => Yii::t('app', 'Confirmed At'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'updated_by' => Yii::t('app', 'Updated By'),
-            'deleted_by' => Yii::t('app', 'Deleted By'),
-            'confirmed_by' => Yii::t('app', 'Confirmed By'),
         ];
     }
 
@@ -191,5 +236,27 @@ class Holiday extends \yii\db\ActiveRecord
     {
         $statuses = Holiday::statuses();
         return isset($statuses[$this->status]) ? $statuses[$this->status] : $this->status;
+    }
+
+    public function getViewName()
+    {
+        return self::getViews()[$this->type];
+    }
+
+    public static function getViews()
+    {
+        return [
+            self::TYPE_PERSONAL => 'personal',
+            self::TYPE_BUSINESS => 'business',
+            self::TYPE_CUSTOM => 'custom'
+        ];
+    }
+
+    public static function getCurrencies()
+    {
+        return [
+            'USD' => 'USD',
+            'EUR' => 'EUR',
+        ];
     }
 }

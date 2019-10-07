@@ -6,6 +6,7 @@ use trntv\yii\datetime\DateTimeWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\web\JsExpression;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\UserSearch */
@@ -20,9 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::a(Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'User',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+            'modelClass' => 'User',
+        ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php Pjax::begin(); ?>
 
     <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
@@ -40,19 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'enum' => User::statuses(),
                 'filter' => User::statuses()
             ],
-            [
-                'attribute' => 'created_at',
-                'format' => 'datetime',
-                'filter' => DateTimeWidget::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'created_at',
-                    'phpDatetimeFormat' => 'dd.MM.yyyy',
-                    'momentDatetimeFormat' => 'DD.MM.YYYY',
-                    'clientEvents' => [
-                        'dp.change' => new JsExpression('(e) => $(e.target).find("input").trigger("change.yiiGridView")')
-                    ],
-                ])
-            ],
             // 'updated_at',
 
             [
@@ -61,11 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'login' => function ($url) {
                         return Html::a(
-                                '<i class="fa fa-sign-in" aria-hidden="true"></i>',
-                                $url,
-                                [
-                                    'title' => Yii::t('app', 'Login')
-                                ]
+                            '<i class="fa fa-sign-in" aria-hidden="true"></i>',
+                            $url,
+                            [
+                                'title' => Yii::t('app', 'Login')
+                            ]
                         );
                     },
                 ],
@@ -76,5 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 
 </div>

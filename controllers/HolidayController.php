@@ -57,6 +57,7 @@ class HolidayController extends Controller
 
     /**
      * @return string
+     * @throws \Exception
      */
     public function actionOwnRequest()
     {
@@ -85,13 +86,16 @@ class HolidayController extends Controller
     }
 
     /**
-     * Creates a new Holiday model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @param $type
+     * @return string|\yii\web\Response
+     *
      */
-    public function actionCreate()
+    public function actionCreate($type)
     {
-        $model = new Holiday();
+
+        $model = new Holiday(['scenario' => $type]);
+        $model->type = $type;
+        $model->status = Holiday::STATUS_PENDING;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

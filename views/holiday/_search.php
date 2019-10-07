@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'travel_coast') ?>
 
-    <?php // echo $form->field($model, 'spink_income') ?>
+    <?php // echo $form->field($model, 'income') ?>
 
     <?php // echo $form->field($model, 'accommodation') ?>
 

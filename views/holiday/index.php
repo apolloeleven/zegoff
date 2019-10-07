@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'going_to',
             //'trip_reason:ntext',
             //'travel_coast',
-            //'spink_income',
+            //'income',
             //'accommodation:ntext',
             //'client_entertainment:ntext',
             //'currency_code',

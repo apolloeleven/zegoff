@@ -1,0 +1,74 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: zura
+ * Date: 10/7/19
+ * Time: 6:40 PM
+ */
+
+use trntv\yii\datetime\DateTimeWidget; ?>
+
+<?php echo $form->field($model, 'going_to')->textInput(['style' => 'width:300px']) ?>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <label><?php echo Yii::t('app', 'From') ?></label>
+        <?php echo DateTimeWidget::widget([
+            'model' => $model,
+            'attribute' => 'start_date',
+            'phpDatetimeFormat' => "yyyy-MM-dd HH:mm:ss",
+            'momentDatetimeFormat' => 'YYYY-MM-DD HH:mm:ss',
+        ]) ?>
+    </div>
+    <div class="col-md-4">
+        <label><?php echo Yii::t('app', 'To') ?></label>
+        <?php echo DateTimeWidget::widget([
+            'model' => $model,
+            'attribute' => 'end_date',
+            'phpDatetimeFormat' => "yyyy-MM-dd HH:mm:ss",
+            'momentDatetimeFormat' => 'YYYY-MM-DD HH:mm:ss',
+        ]) ?>
+    </div>
+</div>
+<br>
+<?= $form->field($model, 'trip_reason')->textarea(['rows' => 6]) ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $form->field($model, 'travel_coast')->textInput(['maxlength' => true]) ?>
+
+    </div>
+    <div class="col-md-6">
+        <?= $form->field($model, 'income')->textInput(['maxlength' => true]) ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $form->field($model, 'accommodation')->textarea(['rows' => 6]) ?>
+
+    </div>
+    <div class="col-md-6">
+        <?= $form->field($model, 'client_entertainment')->textarea(['rows' => 6]) ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $form->field($model, 'currency_code')->dropDownList(\app\models\Holiday::getCurrencies()) ?>
+    </div>
+    <div class="col-md-6">
+        <label><?php echo Yii::t('app', 'Date Require') ?></label>
+        <?php echo DateTimeWidget::widget([
+            'model' => $model,
+            'attribute' => 'end_date',
+            'phpDatetimeFormat' => "yyyy-MM-dd",
+            'momentDatetimeFormat' => 'YYYY-MM-DD',
+        ]) ?>
+    </div>
+</div>
+
+
+
+
+
