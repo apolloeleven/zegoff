@@ -4,17 +4,17 @@ namespace app\controllers;
 
 use app\models\User;
 use Yii;
-use app\models\BankHoliday;
-use app\models\search\BankHolidaySearch;
+use app\models\Holiday;
+use app\models\search\HolidaySearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BankHolidayController implements the CRUD actions for BankHoliday model.
+ * HolidayController implements the CRUD actions for Holiday model.
  */
-class BankHolidayController extends Controller
+class HolidayController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class BankHolidayController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [User::ROLE_MANAGER],
+                        'roles' => [User::ROLE_USER],
                     ],
                 ],
             ],
@@ -41,12 +41,12 @@ class BankHolidayController extends Controller
     }
 
     /**
-     * Lists all BankHoliday models.
+     * Lists all Holiday models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BankHolidaySearch();
+        $searchModel = new HolidaySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -56,7 +56,7 @@ class BankHolidayController extends Controller
     }
 
     /**
-     * Displays a single BankHoliday model.
+     * Displays a single Holiday model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,13 +69,13 @@ class BankHolidayController extends Controller
     }
 
     /**
-     * Creates a new BankHoliday model.
+     * Creates a new Holiday model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new BankHoliday();
+        $model = new Holiday();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -87,7 +87,7 @@ class BankHolidayController extends Controller
     }
 
     /**
-     * Updates an existing BankHoliday model.
+     * Updates an existing Holiday model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,24 +106,30 @@ class BankHolidayController extends Controller
         ]);
     }
 
-
+    /**
+     * Deletes an existing Holiday model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
-        $this->findModel($id)->markDeleted();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the BankHoliday model based on its primary key value.
+     * Finds the Holiday model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return BankHoliday the loaded model
+     * @return Holiday the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BankHoliday::findOne($id)) !== null) {
+        if (($model = Holiday::findOne($id)) !== null) {
             return $model;
         }
 
