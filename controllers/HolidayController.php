@@ -30,6 +30,11 @@ class HolidayController extends Controller
                         'roles' => [User::ROLE_USER],
                         'actions' => ['index', 'update', 'view', 'create', 'delete']
                     ],
+                    [
+                        'allow' => true,
+                        'roles' => [User::ROLE_ADMINISTRATOR],
+                        'actions' => ['requests', 'request-view']
+                    ],
                 ],
             ],
             'verbs' => [
@@ -127,6 +132,40 @@ class HolidayController extends Controller
         return $this->redirect(['index']);
     }
 
+
+    public function actionRequests()
+    {
+        $searchModel = new HolidaySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+        return $this->render('requests/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionRequestView($id)
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+        $model = $this->findAllModel($id);
+
+        if ($user->position != User::POSITION_HR && $user->department_id != $model->user->department_id) {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        }
+
+        return $this->render('requests/view', [
+            'model' => $model,
+        ]);
+    }
+
+
     /**
      * Finds the Holiday model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -137,6 +176,20 @@ class HolidayController extends Controller
     protected function findModel($id)
     {
         if (($model = Holiday::findOne($id)) !== null && $model->user_id == Yii::$app->user->id) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    /**
+     * @param $id
+     * @return Holiday|null
+     * @throws NotFoundHttpException
+     */
+    protected function findAllModel($id)
+    {
+        if (($model = Holiday::findOne($id)) !== null) {
             return $model;
         }
 

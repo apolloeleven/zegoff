@@ -2,6 +2,8 @@
 
 namespace app\models\search;
 
+use app\models\User;
+use app\models\UserProfile;
 use DateTime;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -12,6 +14,9 @@ use app\models\Holiday;
  */
 class HolidaySearch extends Holiday
 {
+    public $employee;
+    public $department;
+
     /**
      * {@inheritdoc}
      */
@@ -21,6 +26,8 @@ class HolidaySearch extends Holiday
             [['id', 'user_id', 'type', 'status', 'created_at', 'updated_at', 'deleted_at', 'confirmed_at', 'created_by', 'updated_by', 'deleted_by', 'confirmed_by'], 'integer'],
             [['title', 'start_date', 'end_date', 'description', 'going_to', 'trip_reason', 'accommodation', 'client_entertainment', 'currency_code', 'date_require'], 'safe'],
             [['travel_coast', 'income', 'days'], 'number'],
+            [['employee'], 'safe'],
+            [['department'], 'safe'],
         ];
     }
 
@@ -43,7 +50,9 @@ class HolidaySearch extends Holiday
      */
     public function search($params)
     {
-        $query = Holiday::find();
+        $query = Holiday::find()
+            ->joinWith('user.department')
+            ->joinWith('user.userProfile');
 
         // add conditions that should always apply here
 
@@ -58,6 +67,18 @@ class HolidaySearch extends Holiday
             // $query->where('0=1');
             return $dataProvider;
         }
+
+
+        $dataProvider->sort->attributes['employee'] = [
+            'asc' => [UserProfile::tableName() . '.firstname' => SORT_ASC],
+            'desc' => [UserProfile::tableName() . '.firstname' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['department'] = [
+            'asc' => [User::tableName() . '.department' => SORT_ASC],
+            'desc' => [User::tableName() . '.department' => SORT_DESC],
+        ];
+
         if ($this->start_date) {
             $start = new DateTime($this->start_date);
             $this->start_date = $start->format("Y-m-d H:i:s");
@@ -70,33 +91,47 @@ class HolidaySearch extends Holiday
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'days' => $this->days,
-            'type' => $this->type,
-            'status' => $this->status,
-            'travel_coast' => $this->travel_coast,
-            'income' => $this->income,
-            'date_require' => $this->date_require,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
-            'confirmed_at' => $this->confirmed_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'deleted_by' => $this->deleted_by,
-            'confirmed_by' => $this->confirmed_by,
+            Holiday::tableName() . '.id' => $this->id,
+            Holiday::tableName() . '.user_id' => $this->user_id,
+            Holiday::tableName() . '.days' => $this->days,
+            Holiday::tableName() . '.type' => $this->type,
+            Holiday::tableName() . '.status' => $this->status,
+            Holiday::tableName() . '.travel_coast' => $this->travel_coast,
+            Holiday::tableName() . '.income' => $this->income,
+            Holiday::tableName() . '.date_require' => $this->date_require,
+            Holiday::tableName() . '.created_at' => $this->created_at,
+            Holiday::tableName() . '.updated_at' => $this->updated_at,
+            Holiday::tableName() . '.deleted_at' => $this->deleted_at,
+            Holiday::tableName() . '.confirmed_at' => $this->confirmed_at,
+            Holiday::tableName() . '.created_by' => $this->created_by,
+            Holiday::tableName() . '.updated_by' => $this->updated_by,
+            Holiday::tableName() . '.deleted_by' => $this->deleted_by,
+            Holiday::tableName() . '.confirmed_by' => $this->confirmed_by,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'going_to', $this->going_to])
-            ->andFilterWhere(['like', 'trip_reason', $this->trip_reason])
-            ->andFilterWhere(['like', 'accommodation', $this->accommodation])
-            ->andFilterWhere(['like', 'client_entertainment', $this->client_entertainment])
-            ->andFilterWhere(['>=', 'start_date', $this->start_date])
-            ->andFilterWhere(['<=', 'end_date', $this->end_date])
+        $query->andFilterWhere(['like', Holiday::tableName() . '.title', $this->title])
+            ->andFilterWhere(['like', Holiday::tableName() . '.description', $this->description])
+            ->andFilterWhere(['like', Holiday::tableName() . '.going_to', $this->going_to])
+            ->andFilterWhere(['like', Holiday::tableName() . '.trip_reason', $this->trip_reason])
+            ->andFilterWhere(['like', Holiday::tableName() . '.accommodation', $this->accommodation])
+            ->andFilterWhere(['like', Holiday::tableName() . '.client_entertainment', $this->client_entertainment])
+            ->andFilterWhere(['>=', Holiday::tableName() . '.start_date', $this->start_date])
+            ->andFilterWhere(['<=', Holiday::tableName() . '.end_date', $this->end_date])
             ->andFilterWhere(['like', 'currency_code', $this->currency_code]);
+
+        //TODO IMPROVE SEARCH
+        if ($this->employee) {
+            $query->andFilterWhere(['or',
+                ['like', UserProfile::tableName() . '.lastname', $this->employee],
+                ['like', UserProfile::tableName() . '.firstname', $this->employee]
+            ]);
+        }
+
+        if ($this->department) {
+            $query->andFilterWhere([
+                User::tableName() . '.department_id' => $this->department,
+            ]);
+        }
 
         return $dataProvider;
     }

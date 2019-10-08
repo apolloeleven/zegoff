@@ -149,8 +149,17 @@ $bundle = \app\assets\AppAsset::register($this);
                     [
                         'label' => Yii::t('app', 'Request Holiday'),
                         'icon' => 'fa fa-users',
-                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'visible' => Yii::$app->user->can(User::ROLE_USER),
                         'url' => ['/holiday/index'],
+                    ],
+                    [
+                        'label' => Yii::t('app', 'All Requests'),
+                        'icon' => 'fa fa-users',
+                        'visible' => Yii::$app->user->can(User::ROLE_ADMINISTRATOR),
+                        'url' => Yii::$app->user->identity->position != User::POSITION_HR ? [
+                            '/holiday/requests',
+                            'HolidaySearch[department]' => Yii::$app->user->identity->department_id
+                        ] : ['/holiday/requests'],
                     ],
                 ],
             ]);
