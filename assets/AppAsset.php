@@ -28,7 +28,6 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/lobiplugins/lobibox.js',
         'js/highlight.pack.js',
-        'js/ck-config.js',
         'js/config.js',
         'js/lobiadmin.js',
         'js/lobiadmin-app.js',
