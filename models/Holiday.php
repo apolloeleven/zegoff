@@ -41,6 +41,7 @@ use yii\behaviors\TimestampBehavior;
  * @property User $createdBy
  * @property User $deletedBy
  * @property User $updatedBy
+ * @property User $user
  */
 class Holiday extends \yii\db\ActiveRecord
 {
@@ -183,11 +184,11 @@ class Holiday extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
-            'confirmed_at' => Yii::t('app', 'Confirmed At'),
+            'confirmed_at' => Yii::t('app', 'Reviewed At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'deleted_by' => Yii::t('app', 'Deleted By'),
-            'confirmed_by' => Yii::t('app', 'Confirmed By'),
+            'confirmed_by' => Yii::t('app', 'Reviewed By'),
         ];
     }
 
@@ -215,6 +216,14 @@ class Holiday extends \yii\db\ActiveRecord
             self::TYPE_BUSINESS => Yii::t('app', 'Business'),
             self::TYPE_CUSTOM => Yii::t('app', env('CUSTOM_HOLIDAY_NAME', 'Custom'))
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**

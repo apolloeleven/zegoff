@@ -150,7 +150,7 @@ $bundle = \app\assets\AppAsset::register($this);
                         'label' => Yii::t('app', 'Request Holiday'),
                         'icon' => 'fa fa-users',
                         'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
-                        'url' => ['/holiday/own-request'],
+                        'url' => ['/holiday/index'],
                     ],
                 ],
             ]);

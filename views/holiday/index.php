@@ -1,8 +1,16 @@
 <?php
 
+use app\helpers\Helper;
+use app\models\Holiday;
+use dosamigos\datetimepicker\DateTimePicker;
+use trntv\yii\datetime\DateTimeWidget;
+use yii\bootstrap\ButtonDropdown;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\HolidaySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -12,47 +20,96 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="holiday-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 style="margin-bottom: 20px"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Holiday'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo ButtonDropdown::widget([
+            'encodeLabel' => false,
+            'options' => ['class' => 'btn btn-default'],
+            'label' => '<i class="fa fa-plus"></i> ' . Yii::t('app', 'Submit Holiday'),
+            'dropdown' => [
+                'items' => array_map(function ($label, $type) {
+                    return [
+                        'label' => $label,
+                        'url' => ['/holiday/create', 'type' => $type],
+                    ];
+                }, Holiday::types(), array_keys(Holiday::types()))
+            ],
+        ]); ?>
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'type',
-            'status',
-            'title',
-            //'start_date',
-            //'end_date',
-            //'description:ntext',
-            //'going_to',
-            //'trip_reason:ntext',
-            //'travel_coast',
-            //'income',
-            //'accommodation:ntext',
-            //'client_entertainment:ntext',
-            //'currency_code',
-            //'date_require',
-            //'created_at',
-            //'updated_at',
-            //'deleted_at',
-            //'confirmed_at',
-            //'created_by',
-            //'updated_by',
-            //'deleted_by',
-            //'confirmed_by',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'status',
+                'filter' => Holiday::statuses(),
+                'value' => function ($model) {
+                    /** @var $model Holiday */
+                    return $model->getStatusText();
+                }
+            ],
+            [
+                'attribute' => 'type',
+                'filter' => Holiday::types(),
+                'value' => function ($model) {
+                    /** @var $model Holiday */
+                    return $model->getTypeText();
+                }
+            ],
+            [
+                'attribute' => 'start_date',
+                'value' => function ($model) {
+                    return $model->start_date;
+                },
+                'label' => 'Date From',
+                'filter' => DateTimeWidget::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'start_date',
+                    'phpDatetimeFormat' => "yyyy-MM-dd",
+                    'momentDatetimeFormat' => 'YYYY-MM-DD',
+                    'clientEvents' => [
+                        'dp.change' => new JsExpression('(e) => $(e.target).find("input").trigger("change.yiiGridView")')
+                    ],
+                ])
+            ],
+            [
+                'attribute' => 'end_date',
+                'value' => function ($model) {
+                    return $model->end_date;
+                },
+                'label' => 'Date To',
+                'filter' => DateTimeWidget::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'end_date',
+                    'phpDatetimeFormat' => "yyyy-MM-dd",
+                    'momentDatetimeFormat' => 'YYYY-MM-DD',
+                    'clientEvents' => [
+                        'dp.change' => new JsExpression('(e) => $(e.target).find("input").trigger("change.yiiGridView")')
+                    ],
+                ])
+            ],
+            'days',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        if ($model->status == 0) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url);
+                        }
+                    },
+                    'delete' => function ($url, $model) {
+                        if ($model->status == 0) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url);
+                        }
+                    },
+                ]
+            ],
         ],
     ]); ?>
 

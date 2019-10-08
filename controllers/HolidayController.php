@@ -28,6 +28,7 @@ class HolidayController extends Controller
                     [
                         'allow' => true,
                         'roles' => [User::ROLE_USER],
+                        'actions' => ['index', 'update', 'view', 'create', 'delete']
                     ],
                 ],
             ],
@@ -41,13 +42,15 @@ class HolidayController extends Controller
     }
 
     /**
-     * Lists all Holiday models.
-     * @return mixed
+     * @return string
+     * @throws \Exception
      */
     public function actionIndex()
     {
         $searchModel = new HolidaySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $queryParams['HolidaySearch'] = Yii::$app->request->get('HolidaySearch');
+        $queryParams['HolidaySearch']['user_id'] = Yii::$app->user->id;
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -55,22 +58,6 @@ class HolidayController extends Controller
         ]);
     }
 
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function actionOwnRequest()
-    {
-        $searchModel = new HolidaySearch();
-        $queryParams['HolidaySearch'] = Yii::$app->request->get('HolidaySearch');
-        $queryParams['HolidaySearch']['user_id'] = Yii::$app->user->id;
-        $dataProvider = $searchModel->search($queryParams);
-
-        return $this->render('own-request', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
     /**
      * Displays a single Holiday model.
@@ -97,7 +84,7 @@ class HolidayController extends Controller
         $model->status = Holiday::STATUS_PENDING;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['own-request']);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -115,6 +102,7 @@ class HolidayController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
         $model->scenario = $model->type;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -148,7 +136,7 @@ class HolidayController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Holiday::findOne($id)) !== null) {
+        if (($model = Holiday::findOne($id)) !== null && $model->user_id == Yii::$app->user->id) {
             return $model;
         }
 
