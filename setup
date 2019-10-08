@@ -1,2 +1,2 @@
-php yii migrate
-php yii rbac-migrate
+php yii migrate --interactive=0
+php yii rbac-migrate --interactive=0

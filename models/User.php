@@ -29,10 +29,11 @@ use yii\web\IdentityInterface;
  * @property integer $logged_at
  * @property string $password write-only password
  * @property float $days_left
- * @property integer $department_id
- * @property integer $position
+ * @property int $department_id
+ * @property int $position
  *
  * @property \app\models\UserProfile $userProfile
+ * @property \app\models\Department $department
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -154,6 +155,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserProfile()
     {
         return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDepartment()
+    {
+        return $this->hasOne(Department::className(), ['id' => 'department_id'])->andWhere([
+
+        ]);
     }
 
     /**

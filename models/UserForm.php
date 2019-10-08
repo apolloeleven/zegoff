@@ -124,6 +124,9 @@ class UserForm extends Model
             $model->username = $this->username;
             $model->email = $this->email;
             $model->status = $this->status;
+            $model->position = $this->position;
+            $model->department_id = $this->department_id;
+            $model->days_left = $this->days_left;
             if ($this->password) {
                 $model->setPassword($this->password);
             }
