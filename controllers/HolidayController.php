@@ -92,13 +92,12 @@ class HolidayController extends Controller
      */
     public function actionCreate($type)
     {
-
         $model = new Holiday(['scenario' => $type]);
         $model->type = $type;
         $model->status = Holiday::STATUS_PENDING;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['own-request']);
         }
 
         return $this->render('create', [
@@ -116,7 +115,7 @@ class HolidayController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->scenario = $model->type;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

@@ -119,7 +119,29 @@ class Holiday extends \yii\db\ActiveRecord
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['deleted_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deleted_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
-
+            [['end_date', 'start_date'], 'required'],
+            [['end_date', 'start_date'], function ($attribute) {
+                if (strtotime($this->start_date) >= strtotime($this->end_date)) {
+                    $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "From must be less than To"));
+                }
+            }],
+            [['end_date', 'start_date'], function ($attribute) {
+                $count = Holiday::find()->byUserId($this->user_id)
+                    ->andWhere(['<=', 'start_date', $this->{$attribute}])
+                    ->andWhere(['>=', 'end_date', $this->{$attribute}])
+                    ->count();
+                if ($count) {
+                    $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "Leave already exists for these dates"));
+                }
+            }],
+            [['title', 'description'], 'required', 'on' => self::SCENARIO_PERSONAL],
+            [['title', 'description'], 'required', 'on' => self::SCENARIO_CUSTOM],
+            [[
+                'going_to',
+                'trip_reason',
+                'travel_coast',
+                'date_require',
+            ], 'required', 'on' => self::SCENARIO_BUSINESS],
         ];
     }
 

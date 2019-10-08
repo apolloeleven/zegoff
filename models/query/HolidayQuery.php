@@ -39,4 +39,13 @@ class HolidayQuery extends \yii\db\ActiveQuery
     {
         return $this->andWhere(['deleted_at' => null]);
     }
+
+    /**
+     * @param $userId
+     * @return HolidayQuery
+     */
+    public function byUserId($userId)
+    {
+        return $this->andWhere(['user_id' => $userId]);
+    }
 }

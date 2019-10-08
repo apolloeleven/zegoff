@@ -27,12 +27,12 @@ use yii\widgets\ActiveForm;
 <?php
 
 foreach ($model->errors as $attribute => $messages) {
-    $msg = implode("<br>", $messages);
+    $msg = implode("\n", $messages);
     $this->registerJs("  
          Lobibox.notify('error', {
               sound: false,
               position: 'top right',
-              delay: 5000,
+              delay: 3500,
               showClass: 'fadeInDown',
               title: '$attribute',
               msg: '$msg'
