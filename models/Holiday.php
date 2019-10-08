@@ -35,6 +35,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int $updated_by
  * @property int $deleted_by
  * @property int $confirmed_by
+ * @property array $workingDays
  *
  * @property User $confirmedBy
  * @property User $createdBy
@@ -56,12 +57,23 @@ class Holiday extends \yii\db\ActiveRecord
     const SCENARIO_CUSTOM = '3';
     const SCENARIO_DEFAULT = 'default';
 
+    public $workingDays;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return '{{%holiday}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            BlameableBehavior::class,
+            TimestampBehavior::class,
+            HolidayBehavior::class
+        ];
     }
 
     public function scenarios()
