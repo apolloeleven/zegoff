@@ -31,42 +31,52 @@ use trntv\yii\datetime\DateTimeWidget; ?>
     </div>
 </div>
 <br>
-<?= $form->field($model, 'trip_reason')->textarea(['rows' => 6]) ?>
+<div class="row">
+    <div class="col-md-8">
+        <?= $form->field($model, 'trip_reason')->textarea(['rows' => 6]) ?>
+    </div>
+</div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <?= $form->field($model, 'travel_coast')->textInput(['maxlength' => true]) ?>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <?= $form->field($model, 'income')->textInput(['maxlength' => true]) ?>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <?= $form->field($model, 'accommodation')->textarea(['rows' => 6]) ?>
-
-    </div>
-    <div class="col-md-6">
-        <?= $form->field($model, 'client_entertainment')->textarea(['rows' => 6]) ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <?= $form->field($model, 'currency_code')->dropDownList(\app\models\Holiday::getCurrencies()) ?>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <label><?php echo Yii::t('app', 'Date Require') ?></label>
         <?php echo DateTimeWidget::widget([
             'model' => $model,
-            'attribute' => 'end_date',
+            'attribute' => 'date_require',
             'phpDatetimeFormat' => "yyyy-MM-dd",
             'momentDatetimeFormat' => 'YYYY-MM-DD',
         ]) ?>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <?= $form->field($model, 'accommodation')->textarea(['rows' => 6]) ?>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <?= $form->field($model, 'client_entertainment')->textarea(['rows' => 6]) ?>
+    </div>
+</div>
+
 
 
 
