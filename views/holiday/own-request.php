@@ -92,6 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ])
             ],
+            'days',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

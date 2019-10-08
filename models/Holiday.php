@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use app\behaviors\HolidayBehavior;
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%holiday}}".
@@ -17,8 +20,9 @@ use Yii;
  * @property string $description
  * @property string $going_to
  * @property string $trip_reason
- * @property string $travel_coast
- * @property string $income
+ * @property float $travel_coast
+ * @property float $income
+ * @property float $days
  * @property string $accommodation
  * @property string $client_entertainment
  * @property string $currency_code
@@ -108,7 +112,7 @@ class Holiday extends \yii\db\ActiveRecord
             [['user_id', 'type', 'status', 'created_at', 'updated_at', 'deleted_at', 'confirmed_at', 'created_by', 'updated_by', 'deleted_by', 'confirmed_by'], 'integer'],
             [['start_date', 'end_date', 'date_require'], 'safe'],
             [['description', 'trip_reason', 'accommodation', 'client_entertainment'], 'string'],
-            [['travel_coast', 'income'], 'number'],
+            [['travel_coast', 'income', 'days'], 'number'],
             [['title', 'going_to'], 'string', 'max' => 255],
             [['currency_code'], 'string', 'max' => 10],
             [['confirmed_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['confirmed_by' => 'id']],
@@ -140,6 +144,7 @@ class Holiday extends \yii\db\ActiveRecord
             'accommodation' => Yii::t('app', 'Accommodation'),
             'client_entertainment' => Yii::t('app', 'Client Entertainment'),
             'currency_code' => Yii::t('app', 'Currency Code'),
+            'days' => Yii::t('app', 'Days'),
             'date_require' => Yii::t('app', 'Date Require'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),

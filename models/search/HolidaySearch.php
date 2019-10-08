@@ -20,7 +20,7 @@ class HolidaySearch extends Holiday
         return [
             [['id', 'user_id', 'type', 'status', 'created_at', 'updated_at', 'deleted_at', 'confirmed_at', 'created_by', 'updated_by', 'deleted_by', 'confirmed_by'], 'integer'],
             [['title', 'start_date', 'end_date', 'description', 'going_to', 'trip_reason', 'accommodation', 'client_entertainment', 'currency_code', 'date_require'], 'safe'],
-            [['travel_coast', 'income'], 'number'],
+            [['travel_coast', 'income', 'days'], 'number'],
         ];
     }
 
@@ -72,6 +72,7 @@ class HolidaySearch extends Holiday
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'days' => $this->days,
             'type' => $this->type,
             'status' => $this->status,
             'travel_coast' => $this->travel_coast,
