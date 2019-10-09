@@ -129,43 +129,49 @@ $bundle = \app\assets\AppAsset::register($this);
                 'activeCssClass' => 'opened',
                 'items' => [
                     [
-                        'label' => Yii::t('app', 'Employees'),
-                        'icon' => 'fa fa-users',
-                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
-                        'url' => ['/user'],
-                    ],
-                    [
-                        'label' => Yii::t('app', 'Department'),
-                        'icon' => 'fa fa-sitemap',
-                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
-                        'url' => ['/department'],
-                    ],
-                    [
-                        'label' => Yii::t('app', 'Bank Holidays'),
-                        'icon' => 'fa fa-plane',
-                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
-                        'url' => ['/bank-holiday'],
-                    ],
-                    [
                         'label' => Yii::t('app', 'Request Holiday'),
                         'icon' => 'fa fa-file',
                         'visible' => Yii::$app->user->can(User::ROLE_USER),
                         'url' => ['/holiday/index'],
                     ],
                     [
+                        'label' => Yii::t('app', 'Calendar'),
+                        'icon' => 'fa fa-calendar',
+                        'visible' => Yii::$app->user->can(User::ROLE_USER),
+                        'url' => ['/site/index'],
+                    ],
+                    [
                         'label' => Yii::t('app', 'All Requests'),
                         'icon' => 'fa fa-eye',
                         'visible' => Yii::$app->user->can(User::ROLE_ADMINISTRATOR),
                         'url' => Yii::$app->user->identity->position != User::POSITION_HR ? [
-                            '/request',
+                            '/request/index',
                             'HolidaySearch[department]' => Yii::$app->user->identity->department_id
-                        ] : ['/request'],
+                        ] : ['/request/index'],
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Employees'),
+                        'icon' => 'fa fa-users',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'url' => ['/user/index'],
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Department'),
+                        'icon' => 'fa fa-sitemap',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'url' => ['/department/index'],
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Bank Holidays'),
+                        'icon' => 'fa fa-plane',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'url' => ['/bank-holiday/index'],
                     ],
                     [
                         'label' => Yii::t('app', 'Working Days'),
                         'icon' => 'fa fa-calendar',
                         'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
-                        'url' => ['/working-day'],
+                        'url' => ['/working-day/index'],
                     ],
                 ],
             ]);

@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Holiday;
+use app\models\User;
+use edofre\fullcalendar\models\Event;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -20,14 +23,15 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => [User::ROLE_USER],
+                        'actions' => ['index']
                     ],
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -52,7 +56,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $events = [];
+        $times = Holiday::find()->joinWith('user')//->andWhere('1 <= datediff( holiday.end, holiday.start)')
+        ->andWhere(['=', 'holiday.status', 2])
+            ->all();
+        foreach ($times AS $time) {
+            $Event = new Event();
+            $Event->id = $time->id;
+            $Event->backgroundColor = 'green';
+            $Event->borderColor = 'green';
+            $Event->title = $time->user->userProfile->getFullName();
+            $Event->start = date('Y-m-d\TH:i:s\Z', strtotime($time->start_date));
+            $Event->end = date('Y-m-d\TH:i:s\Z', strtotime($time->end_date));
+            $events[] = $Event;
+        }
+
+        return $this->render('index', ['events' => $events]);
     }
 
 }

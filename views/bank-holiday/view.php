@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\BankHoliday */
 
-$this->title = $model->id;
+$this->title = $model->date;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Bank Holidays'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

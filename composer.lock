@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d7acece69caaed09abff581ff43c7c0",
+    "content-hash": "f95ff62afe1473221df957a20669af95",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -854,16 +854,16 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.12.x-dev",
+            "version": "4.13.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ckeditor/ckeditor-releases.git",
-                "reference": "b1a25e93ae0b038f45dcba458f4c2c18bd7318e5"
+                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
+                "reference": "4d6b1722a79009f4627fd338ca872e57914e8235"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/b1a25e93ae0b038f45dcba458f4c2c18bd7318e5",
-                "reference": "b1a25e93ae0b038f45dcba458f4c2c18bd7318e5",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/4d6b1722a79009f4627fd338ca872e57914e8235",
+                "reference": "4d6b1722a79009f4627fd338ca872e57914e8235",
                 "shasum": ""
             },
             "type": "library",
@@ -891,7 +891,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2019-06-28T10:41:23+00:00"
+            "time": "2019-09-26T11:04:37+00:00"
         },
         {
             "name": "conquer/codemirror",
@@ -1092,6 +1092,57 @@
                 "php"
             ],
             "time": "2019-06-08T11:03:04+00:00"
+        },
+        {
+            "name": "edofre/yii2-fullcalendar",
+            "version": "V1.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Edofre/yii2-fullcalendar.git",
+                "reference": "0eed44a374a95849093891f08df20b79942a0c62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Edofre/yii2-fullcalendar/zipball/0eed44a374a95849093891f08df20b79942a0c62",
+                "reference": "0eed44a374a95849093891f08df20b79942a0c62",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/fullcalendar": "v3.8.0",
+                "php": ">=5.5.0",
+                "yiisoft/yii2": ">=2.0.9",
+                "yiisoft/yii2-jui": ">=2.0.6"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "edofre\\fullcalendar\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Edo Freriks",
+                    "email": "edofre@gmail.com"
+                }
+            ],
+            "description": "Yii2 widget for fullcalendar",
+            "homepage": "https://github.com/edofre/yii2-fullcalendar",
+            "keywords": [
+                "calendar",
+                "event",
+                "fullcalendar",
+                "javascript"
+            ],
+            "time": "2018-01-04T21:25:17+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1404,12 +1455,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "08896e6cc51c276092a4170263608099d9a3352f"
+                "reference": "98fec1ca655072b61f05659571cf4c812c79e763"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/08896e6cc51c276092a4170263608099d9a3352f",
-                "reference": "08896e6cc51c276092a4170263608099d9a3352f",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/98fec1ca655072b61f05659571cf4c812c79e763",
+                "reference": "98fec1ca655072b61f05659571cf4c812c79e763",
                 "shasum": ""
             },
             "type": "library",
@@ -1449,7 +1500,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2019-10-07T09:50:27+00:00"
+            "time": "2019-10-08T13:34:38+00:00"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -1726,12 +1777,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "f3e17a51285655d57bede45197d05ef4e3109bfc"
+                "reference": "301014816b2fb5d0776867e205ae7a3cbd1c3c8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f3e17a51285655d57bede45197d05ef4e3109bfc",
-                "reference": "f3e17a51285655d57bede45197d05ef4e3109bfc",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/301014816b2fb5d0776867e205ae7a3cbd1c3c8a",
+                "reference": "301014816b2fb5d0776867e205ae7a3cbd1c3c8a",
                 "shasum": ""
             },
             "require": {
@@ -1802,7 +1853,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-10-05T14:08:42+00:00"
+            "time": "2019-10-08T18:52:19+00:00"
         },
         {
             "name": "league/glide",
@@ -2431,6 +2482,46 @@
             "time": "2018-08-12T10:10:26+00:00"
         },
         {
+            "name": "npm-asset/fullcalendar",
+            "version": "3.8.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-3.8.0.tgz"
+            },
+            "require": {
+                "npm-asset/jquery": ">=2,<4.0",
+                "npm-asset/moment": ">=2.9.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery",
+            "version": "3.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/moment",
+            "version": "2.24.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/moment/-/moment-2.24.0.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v9.99.99.x-dev",
             "source": {
@@ -2471,6 +2562,56 @@
                 "random"
             ],
             "time": "2018-08-07T13:07:48+00:00"
+        },
+        {
+            "name": "phpoption/phpoption",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/php-option.git",
+                "reference": "94e644f7d2051a5f0fcf77d81605f152eecff0ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/94e644f7d2051a5f0fcf77d81605f152eecff0ed",
+                "reference": "94e644f7d2051a5f0fcf77d81605f152eecff0ed",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PhpOption\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Option Type for PHP",
+            "keywords": [
+                "language",
+                "option",
+                "php",
+                "type"
+            ],
+            "time": "2015-07-25T16:39:46+00:00"
         },
         {
             "name": "psr/http-message",
@@ -3627,29 +3768,30 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "2.6.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5"
+                "reference": "1bdf24f065975594f6a117f0f1f6cabf1333b156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/1bdf24f065975594f6a117f0f1f6cabf1333b156",
+                "reference": "1bdf24f065975594f6a117f0f1f6cabf1333b156",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
+                "php": "^5.4 || ^7.0",
+                "phpoption/phpoption": "^1.5",
                 "symfony/polyfill-ctype": "^1.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.0"
+                "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "3.6-dev"
                 }
             },
             "autoload": {
@@ -3663,9 +3805,14 @@
             ],
             "authors": [
                 {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "homepage": "https://gjcampbell.co.uk/"
+                },
+                {
                     "name": "Vance Lucas",
                     "email": "vance@vancelucas.com",
-                    "homepage": "http://www.vancelucas.com"
+                    "homepage": "https://vancelucas.com/"
                 }
             ],
             "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
@@ -3674,7 +3821,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29T11:11:52+00:00"
+            "time": "2019-09-10T21:37:39+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -3682,12 +3829,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "8fbb5af36e7d64a902d26b1e008cf9de076b0408"
+                "reference": "e972068ecb840458267373db5a235d5d985b3016"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/8fbb5af36e7d64a902d26b1e008cf9de076b0408",
-                "reference": "8fbb5af36e7d64a902d26b1e008cf9de076b0408",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e972068ecb840458267373db5a235d5d985b3016",
+                "reference": "e972068ecb840458267373db5a235d5d985b3016",
                 "shasum": ""
             },
             "require": {
@@ -3774,7 +3921,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-10-05T19:33:29+00:00"
+            "time": "2019-10-09T11:59:45+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -3900,12 +4047,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "a023c06a957448cedaf796b3b7d4db6561d2b6a7"
+                "reference": "05ecc99868352cf840173bfd8fe67bfd84b5f295"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/a023c06a957448cedaf796b3b7d4db6561d2b6a7",
-                "reference": "a023c06a957448cedaf796b3b7d4db6561d2b6a7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/05ecc99868352cf840173bfd8fe67bfd84b5f295",
+                "reference": "05ecc99868352cf840173bfd8fe67bfd84b5f295",
                 "shasum": ""
             },
             "require": {
@@ -3942,7 +4089,7 @@
                 "httpclient",
                 "yii2"
             ],
-            "time": "2019-10-01T08:37:27+00:00"
+            "time": "2019-10-08T09:48:57+00:00"
         },
         {
             "name": "yiisoft/yii2-jui",
@@ -4530,12 +4677,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "242591b09ad2fc5993570448fc0a95b09f30270b"
+                "reference": "300a564096ce5ce90dfd12a27fc8bc7ecbec523d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/242591b09ad2fc5993570448fc0a95b09f30270b",
-                "reference": "242591b09ad2fc5993570448fc0a95b09f30270b",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/300a564096ce5ce90dfd12a27fc8bc7ecbec523d",
+                "reference": "300a564096ce5ce90dfd12a27fc8bc7ecbec523d",
                 "shasum": ""
             },
             "require": {
@@ -4572,7 +4719,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2019-09-18T07:27:53+00:00"
+            "time": "2019-10-09T14:06:15+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -7364,16 +7511,16 @@
         },
         {
             "name": "yiisoft/yii2-gii",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "6ebe5e1550030b9b65beaf656cd175577eb74975"
+                "reference": "cf3e81953a9e9796eed4021f3065bc5c18ee3356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/6ebe5e1550030b9b65beaf656cd175577eb74975",
-                "reference": "6ebe5e1550030b9b65beaf656cd175577eb74975",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/cf3e81953a9e9796eed4021f3065bc5c18ee3356",
+                "reference": "cf3e81953a9e9796eed4021f3065bc5c18ee3356",
                 "shasum": ""
             },
             "require": {
@@ -7411,7 +7558,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2019-08-13T14:34:28+00:00"
+            "time": "2019-10-08T10:28:42+00:00"
         }
     ],
     "aliases": [],
@@ -7420,6 +7567,7 @@
         "asofter/yii2-imperavi-redactor": 20,
         "trntv/yii2-datetime-widget": 20,
         "trntv/cheatsheet": 20,
+        "vlucas/phpdotenv": 20,
         "kartik-v/yii2-widget-fileinput": 20,
         "fxp/composer-asset-plugin": 20,
         "yiisoft/yii2-jui": 20,

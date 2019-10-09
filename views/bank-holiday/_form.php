@@ -15,13 +15,16 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::class, [
-                'options' => ['class' => 'form-control'],
-                'dateFormat' => 'yyyy-MM-dd',
+            <label><?php echo Yii::t('app', 'Date') ?></label>
+            <?php echo DateTimeWidget::widget([
+                'model' => $model,
+                'attribute' => 'date',
+                'phpDatetimeFormat' => "yyyy-MM-dd",
+                'momentDatetimeFormat' => 'YYYY-MM-DD',
             ]) ?>
         </div>
     </div>
-
+    <br>
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
