@@ -82,6 +82,9 @@ class RequestController extends \yii\web\Controller
         $model->confirmed_by = Yii::$app->user->identity->id;
         $model->confirmed_at = time();
 
+
+        //TODO DECREASE HOLIDAY DAYS FOR USER
+
         if (!$model->save()) {
             return $this->redirect(['index', 'id' => $model->id]);
         }

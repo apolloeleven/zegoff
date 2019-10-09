@@ -161,6 +161,12 @@ $bundle = \app\assets\AppAsset::register($this);
                             'HolidaySearch[department]' => Yii::$app->user->identity->department_id
                         ] : ['/request'],
                     ],
+                    [
+                        'label' => Yii::t('app', 'Working Days'),
+                        'icon' => 'fa fa-calendar',
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
+                        'url' => ['/working-day'],
+                    ],
                 ],
             ]);
             ?>
