@@ -103,11 +103,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view}',
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        if ($model->status == 0) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
-                                ['/holiday/request-view', 'id' => $model->id], ['data-pjax' => "0"]
-                            );
-                        }
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
+                            ['/holiday/request-view', 'id' => $model->id], ['data-pjax' => "0"]
+                        );
+
                     },
                 ]
             ],

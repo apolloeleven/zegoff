@@ -33,7 +33,7 @@ class HolidayController extends Controller
                     [
                         'allow' => true,
                         'roles' => [User::ROLE_ADMINISTRATOR],
-                        'actions' => ['requests', 'request-view']
+                        'actions' => ['requests', 'request-view', 'confirm']
                     ],
                 ],
             ],
@@ -119,11 +119,11 @@ class HolidayController extends Controller
     }
 
     /**
-     * Deletes an existing Holiday model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -133,6 +133,10 @@ class HolidayController extends Controller
     }
 
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function actionRequests()
     {
         $searchModel = new HolidaySearch();
@@ -154,7 +158,7 @@ class HolidayController extends Controller
     {
         /** @var User $user */
         $user = Yii::$app->user->identity;
-        $model = $this->findAllModel($id);
+        $model = $this->findAllModelExceptOwn($id);
 
         if ($user->position != User::POSITION_HR && $user->department_id != $model->user->department_id) {
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
@@ -165,6 +169,29 @@ class HolidayController extends Controller
         ]);
     }
 
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionConfirm()
+    {
+        $model = $this->findAllModelExceptOwn(Yii::$app->request->post('id'));
+        $model->setScenario(Holiday::SCENARIO_DEFAULT);
+        $model->status = Yii::$app->request->post('status');
+        $model->confirmed_by = Yii::$app->user->identity->id;
+        $model->confirmed_at = time();
+
+        if (!$model->save()) {
+            return $this->redirect(['request-view', 'id' => $model->id]);
+        }
+
+        if (Yii::$app->user->identity->position != User::POSITION_HR) {
+            $url = ['requests'];
+        } else {
+            $url = ['requests', 'HolidaySearch[department]' => Yii::$app->user->identity->department_id];
+        }
+
+        return $this->redirect($url);
+    }
 
     /**
      * Finds the Holiday model based on its primary key value.
@@ -187,9 +214,9 @@ class HolidayController extends Controller
      * @return Holiday|null
      * @throws NotFoundHttpException
      */
-    protected function findAllModel($id)
+    protected function findAllModelExceptOwn($id)
     {
-        if (($model = Holiday::findOne($id)) !== null) {
+        if (($model = Holiday::findOne($id)) !== null && $model->user_id != Yii::$app->user->id) {
             return $model;
         }
 

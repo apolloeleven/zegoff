@@ -79,7 +79,7 @@ class Holiday extends \yii\db\ActiveRecord
 
     public function scenarios()
     {
-        return [
+        return array_merge(parent::scenarios(), [
             self::SCENARIO_PERSONAL => [
                 'user_id',
                 'type',
@@ -113,7 +113,7 @@ class Holiday extends \yii\db\ActiveRecord
                 'end_date',
                 'description',
             ]
-        ];
+        ]);
     }
 
     /**
@@ -132,21 +132,11 @@ class Holiday extends \yii\db\ActiveRecord
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['deleted_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deleted_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+
             [['end_date', 'start_date'], 'required'],
-            [['end_date', 'start_date'], function ($attribute) {
-                if (strtotime($this->start_date) >= strtotime($this->end_date)) {
-                    $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "From must be less than To"));
-                }
-            }],
-            [['end_date', 'start_date'], function ($attribute) {
-                $count = Holiday::find()->byUserId($this->user_id)
-                    ->andWhere(['<=', 'start_date', $this->{$attribute}])
-                    ->andWhere(['>=', 'end_date', $this->{$attribute}])
-                    ->count();
-                if ($count) {
-                    $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "Leave already exists for these dates"));
-                }
-            }],
+
+            [['end_date'], 'validateDates', 'on' => [self::SCENARIO_PERSONAL, self::SCENARIO_BUSINESS, self::SCENARIO_CUSTOM]],
+
             [['title', 'description'], 'required', 'on' => self::SCENARIO_PERSONAL],
             [['title', 'description'], 'required', 'on' => self::SCENARIO_CUSTOM],
             [[
@@ -218,6 +208,17 @@ class Holiday extends \yii\db\ActiveRecord
         ];
     }
 
+    public function validateDates($attribute)
+    {
+        if (strtotime($this->start_date) >= strtotime($this->end_date)) {
+            $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "From must be less than To"));
+        }
+
+        if ($this->countInRange()) {
+            $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "Leave already exists for these dates"));
+        }
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -265,6 +266,21 @@ class Holiday extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\models\query\HolidayQuery(get_called_class());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function countInRange()
+    {
+        return Holiday::find()->andWhere(['user_id' => $this->user_id])
+            ->andWhere(['or', ['and', ['<=', 'start_date', $this->start_date],
+                    ['>=', 'end_date', $this->start_date]], ['and', ['<=', 'start_date', $this->end_date],
+                    ['>=', 'end_date', $this->end_date]], ['and', ['>=', 'start_date', $this->start_date],
+                    ['<=', 'start_date', $this->end_date]], ['and', ['>=', 'end_date', $this->start_date],
+                    ['<=', 'end_date', $this->end_date]]]
+            )
+            ->count();
     }
 
     public function markDeleted()
