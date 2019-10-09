@@ -70,11 +70,11 @@ class Holiday extends \yii\db\ActiveRecord
 
     public function behaviors()
     {
-        return [
+        return array_merge(parent::behaviors(), [
             BlameableBehavior::class,
             TimestampBehavior::class,
             HolidayBehavior::class
-        ];
+        ]);
     }
 
     public function scenarios()
@@ -273,6 +273,7 @@ class Holiday extends \yii\db\ActiveRecord
      */
     public function countInRange()
     {
+        $id = $this->id ?: '';
         return Holiday::find()->andWhere(['user_id' => $this->user_id])
             ->andWhere(['or', ['and', ['<=', 'start_date', $this->start_date],
                     ['>=', 'end_date', $this->start_date]], ['and', ['<=', 'start_date', $this->end_date],
@@ -280,6 +281,7 @@ class Holiday extends \yii\db\ActiveRecord
                     ['<=', 'start_date', $this->end_date]], ['and', ['>=', 'end_date', $this->start_date],
                     ['<=', 'end_date', $this->end_date]]]
             )
+            ->andWhere(['!=', 'id', $id])
             ->count();
     }
 

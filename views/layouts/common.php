@@ -136,25 +136,25 @@ $bundle = \app\assets\AppAsset::register($this);
                     ],
                     [
                         'label' => Yii::t('app', 'Department'),
-                        'icon' => 'fa fa-users',
+                        'icon' => 'fa fa-sitemap',
                         'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
                         'url' => ['/department'],
                     ],
                     [
                         'label' => Yii::t('app', 'Bank Holidays'),
-                        'icon' => 'fa fa-users',
+                        'icon' => 'fa fa-plane',
                         'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
                         'url' => ['/bank-holiday'],
                     ],
                     [
                         'label' => Yii::t('app', 'Request Holiday'),
-                        'icon' => 'fa fa-users',
+                        'icon' => 'fa fa-file',
                         'visible' => Yii::$app->user->can(User::ROLE_USER),
                         'url' => ['/holiday/index'],
                     ],
                     [
                         'label' => Yii::t('app', 'All Requests'),
-                        'icon' => 'fa fa-users',
+                        'icon' => 'fa fa-eye',
                         'visible' => Yii::$app->user->can(User::ROLE_ADMINISTRATOR),
                         'url' => Yii::$app->user->identity->position != User::POSITION_HR ? [
                             '/request',
