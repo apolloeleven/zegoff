@@ -14,19 +14,19 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Holidays'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-    <div class="holiday-view">
+<div class="holiday-view">
 
-        <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
-        <?php echo $this->render('@app/views/holiday/_view_types/_default',
-            [
-                'model' => $model,
-            ]) ?>
+    <?php echo $this->render('@app/views/holiday/_view_types/_default',
+        [
+            'model' => $model,
+        ]) ?>
 
-    </div>
+</div>
 
 <?php if ($model->status == 0): ?>
-    <form class="form-horizontal" action="<?php echo \yii\helpers\Url::to(['holiday/confirm']) ?>" method="post">
+    <form class="form-horizontal" action="<?php echo \yii\helpers\Url::to(['request/confirm']) ?>" method="post">
         <div style="margin-left: 10px">
             <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>"
                    value="<?= Yii::$app->request->csrfToken; ?>"/>
@@ -54,3 +54,24 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </form>
 <?php endif; ?>
+
+
+<?php
+$js = "";
+foreach ($model->errors as $attribute => $messages) {
+    $msg = implode("<br>", $messages);
+    $js .= "  
+         Lobibox.notify('error', {
+              sound: false,
+              position: 'top right',
+              delay: 3500,
+              showClass: 'fadeInDown',
+              title: '$attribute',
+              msg: " . '"' . $msg . '"' . "
+         });
+     ";
+}
+
+$this->registerJs($js)
+
+?>

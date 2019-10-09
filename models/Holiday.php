@@ -6,6 +6,7 @@ use app\behaviors\HolidayBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "{{%holiday}}".
@@ -57,6 +58,7 @@ class Holiday extends \yii\db\ActiveRecord
     const SCENARIO_BUSINESS = '2';
     const SCENARIO_CUSTOM = '3';
     const SCENARIO_DEFAULT = 'default';
+    const SCENARIO_CONFIRM = 'confirm';
 
     public $workingDays;
 
@@ -112,6 +114,10 @@ class Holiday extends \yii\db\ActiveRecord
                 'start_date',
                 'end_date',
                 'description',
+            ],
+            self::SCENARIO_CONFIRM => [
+                'status',
+                'days',
             ]
         ]);
     }
@@ -134,9 +140,8 @@ class Holiday extends \yii\db\ActiveRecord
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
 
             [['end_date', 'start_date'], 'required'],
-
             [['end_date'], 'validateDates', 'on' => [self::SCENARIO_PERSONAL, self::SCENARIO_BUSINESS, self::SCENARIO_CUSTOM]],
-
+            [['days'], 'checkAvailable', 'on' => [self::SCENARIO_CONFIRM]],
             [['title', 'description'], 'required', 'on' => self::SCENARIO_PERSONAL],
             [['title', 'description'], 'required', 'on' => self::SCENARIO_CUSTOM],
             [[
@@ -206,6 +211,13 @@ class Holiday extends \yii\db\ActiveRecord
             self::TYPE_BUSINESS => Yii::t('app', 'Business'),
             self::TYPE_CUSTOM => Yii::t('app', env('CUSTOM_HOLIDAY_NAME', 'Custom'))
         ];
+    }
+
+    public function checkAvailable($attribute)
+    {
+        if ($this->user->days_left < $this->days && $this->status == self::STATUS_ACCEPTED) {
+            $this->addError($attribute, \Yii::t('app', "Employee doesn't have enough days | Please contact HR"));
+        }
     }
 
     public function validateDates($attribute)
@@ -324,5 +336,17 @@ class Holiday extends \yii\db\ActiveRecord
             'USD' => 'USD',
             'EUR' => 'EUR',
         ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function decreaseUserDays()
+    {
+        $user = $this->user;
+        $user->days_left = $user->days_left - $this->days;
+        if (!$user->save()) {
+            throw new Exception("User could not saved");
+        }
     }
 }

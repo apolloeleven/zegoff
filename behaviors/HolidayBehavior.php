@@ -12,6 +12,7 @@ use app\models\Holiday;
 use DateTime;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 /**
  * @property  Holiday $owner
@@ -24,13 +25,22 @@ class HolidayBehavior extends Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_BEFORE_INSERT => 'beforeInsert',
-            ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeUpdate',
+            ActiveRecord::EVENT_AFTER_VALIDATE => 'afterValidate',
+            ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
         ];
     }
 
+    /**
+     * @throws Exception
+     */
+    public function afterUpdate()
+    {
+        if ($this->owner->scenario == Holiday::SCENARIO_CONFIRM && $this->owner->status == Holiday::STATUS_ACCEPTED) {
+            $this->owner->decreaseUserDays();
+        }
+    }
 
-    public function beforeUpdate()
+    public function afterValidate()
     {
         // Calculate days
         if (in_array($this->owner->scenario, [
@@ -40,14 +50,8 @@ class HolidayBehavior extends Behavior
         ])) {
             $this->setWorkingDays();
             $this->calculateDays();
+            $this->checkAvailable();
         }
-    }
-
-    public function beforeInsert()
-    {
-        // Calculate days
-        $this->setWorkingDays();
-        $this->calculateDays();
     }
 
     /**
@@ -72,4 +76,13 @@ class HolidayBehavior extends Behavior
         $weekDay = date('w', strtotime($date));
         return (integer)in_array($weekDay, $this->owner->workingDays);
     }
+
+    private function checkAvailable()
+    {
+        if ($this->owner->user->days_left < $this->owner->days) {
+            $this->owner->addError('Days', \Yii::t('app', "Employee doesn't have enough days | Please contact HR"));
+        }
+    }
+
+
 }

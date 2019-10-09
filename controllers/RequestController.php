@@ -72,24 +72,29 @@ class RequestController extends \yii\web\Controller
     }
 
     /**
+     * @return string|\yii\web\Response
      * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
      */
     public function actionConfirm()
     {
+        $transaction = Yii::$app->db->beginTransaction();
         $model = $this->findAllModelExceptOwn(Yii::$app->request->post('id'));
-        $model->setScenario(Holiday::SCENARIO_DEFAULT);
+        $model->setScenario(Holiday::SCENARIO_CONFIRM);
         $model->status = Yii::$app->request->post('status');
         $model->confirmed_by = Yii::$app->user->identity->id;
         $model->confirmed_at = time();
-
-
-        //TODO DECREASE HOLIDAY DAYS FOR USER
+        $model->validate();
 
         if (!$model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            $model->status = Holiday::STATUS_PENDING;
+            return $this->render('view', [
+                'model' => $model,
+            ]);
         }
 
-        if (Yii::$app->user->identity->position != User::POSITION_HR) {
+        $transaction->commit();
+        if (Yii::$app->user->identity->position == User::POSITION_HR) {
             $url = ['index'];
         } else {
             $url = ['index', 'HolidaySearch[department]' => Yii::$app->user->identity->department_id];

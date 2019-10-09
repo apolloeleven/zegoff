@@ -25,8 +25,8 @@ use yii\widgets\ActiveForm;
     </div>
 
 <?php
-
 $js = "";
+
 foreach ($model->errors as $attribute => $messages) {
     $msg = implode("<br>", $messages);
     $js .= "  
@@ -36,7 +36,7 @@ foreach ($model->errors as $attribute => $messages) {
               delay: 3500,
               showClass: 'fadeInDown',
               title: '$attribute',
-              msg: '$msg'
+              msg: " . '"' . $msg . '"' . "
          });
      ";
 }
