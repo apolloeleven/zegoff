@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <h1><?= Html::encode($this->title) ?></h1>
 
-        <?php echo $this->render('../_view_types/_default',
+        <?php echo $this->render('@app/views/holiday/_view_types/_default',
             [
                 'model' => $model,
             ]) ?>

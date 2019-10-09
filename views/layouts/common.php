@@ -157,9 +157,9 @@ $bundle = \app\assets\AppAsset::register($this);
                         'icon' => 'fa fa-users',
                         'visible' => Yii::$app->user->can(User::ROLE_ADMINISTRATOR),
                         'url' => Yii::$app->user->identity->position != User::POSITION_HR ? [
-                            '/holiday/requests',
+                            '/request',
                             'HolidaySearch[department]' => Yii::$app->user->identity->department_id
-                        ] : ['/holiday/requests'],
+                        ] : ['/request'],
                     ],
                 ],
             ]);

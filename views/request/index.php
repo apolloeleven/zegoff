@@ -101,14 +101,6 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}',
-                'buttons' => [
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
-                            ['/holiday/request-view', 'id' => $model->id], ['data-pjax' => "0"]
-                        );
-
-                    },
-                ]
             ],
         ],
     ]); ?>

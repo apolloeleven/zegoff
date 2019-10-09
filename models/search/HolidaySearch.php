@@ -45,10 +45,11 @@ class HolidaySearch extends Holiday
      *
      * @param array $params
      *
+     * @param bool $excludeCurrentUser
      * @return ActiveDataProvider
      * @throws \Exception
      */
-    public function search($params)
+    public function search($params, $excludeCurrentUser = false)
     {
         $query = Holiday::find()
             ->joinWith('user.department')
@@ -131,6 +132,10 @@ class HolidaySearch extends Holiday
             $query->andFilterWhere([
                 User::tableName() . '.department_id' => $this->department,
             ]);
+        }
+
+        if ($excludeCurrentUser) {
+            $query->andFilterWhere(['!=', Holiday::tableName() . '.user_id', \Yii::$app->user->id]);
         }
 
         return $dataProvider;
