@@ -70,6 +70,9 @@ $config = [
             'ruleTable' => '{{%rbac_auth_rule}}'
         ],
         'urlManager' => require(__DIR__ . '/_urlManager.php'),
+        'holidaySettings' => [
+            'class' => \app\components\HolidaySettings::class,
+        ]
     ],
     'params' => $params,
 ];
