@@ -105,7 +105,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'delete' => function ($url, $model) {
                         if ($model->status == 0) {
-                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url);
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                'data-method' => "post"
+                            ]);
                         }
                     },
                 ]

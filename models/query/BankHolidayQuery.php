@@ -2,6 +2,8 @@
 
 namespace app\models\query;
 
+use app\models\BankHoliday;
+
 /**
  * This is the ActiveQuery class for [[\app\models\BankHoliday]].
  *
@@ -37,6 +39,6 @@ class BankHolidayQuery extends \yii\db\ActiveQuery
      */
     public function notDeleted()
     {
-        return $this->andWhere(['deleted_at' => null]);
+        return $this->andWhere([BankHoliday::tableName() . '.deleted_at' => null]);
     }
 }

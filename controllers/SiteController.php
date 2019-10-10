@@ -68,6 +68,7 @@ class SiteController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $events = [];
         $times = Holiday::find()->joinWith('user')
+            ->notDeleted()
             ->andWhere(['=', Holiday::tableName() . '.status', Holiday::STATUS_ACCEPTED])
             ->andWhere(['>=', Holiday::tableName() . '.end_date', \Yii::$app->request->get('start')])
             ->andWhere(['<=', Holiday::tableName() . '.start_date', \Yii::$app->request->get('end')])

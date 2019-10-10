@@ -130,6 +130,7 @@ class HolidayBehavior extends Behavior
     private function setBankHolidays()
     {
         $bankHolidays = BankHoliday::find()
+            ->notDeleted()
             ->andWhere(['>=', 'date', $this->owner->start_date])
             ->all();
 

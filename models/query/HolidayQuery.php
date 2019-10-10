@@ -2,6 +2,8 @@
 
 namespace app\models\query;
 
+use app\models\Holiday;
+
 /**
  * This is the ActiveQuery class for [[\app\models\Holiday]].
  *
@@ -37,7 +39,7 @@ class HolidayQuery extends \yii\db\ActiveQuery
      */
     public function notDeleted()
     {
-        return $this->andWhere(['deleted_at' => null]);
+        return $this->andWhere([Holiday::tableName() . '.deleted_at' => null]);
     }
 
     /**
@@ -46,6 +48,6 @@ class HolidayQuery extends \yii\db\ActiveQuery
      */
     public function byUserId($userId)
     {
-        return $this->andWhere(['user_id' => $userId]);
+        return $this->andWhere([Holiday::tableName() . '.user_id' => $userId]);
     }
 }

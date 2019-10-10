@@ -116,12 +116,10 @@ class HolidayController extends Controller
      * @param $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->markDeleted();
 
         return $this->redirect(['index']);
     }

@@ -52,6 +52,7 @@ class HolidaySearch extends Holiday
     public function search($params, $excludeCurrentUser = false)
     {
         $query = Holiday::find()
+            ->notDeleted()
             ->joinWith('user.department')
             ->joinWith('user.userProfile');
 
