@@ -6,6 +6,7 @@
  * Time: 6:15 PM
  */
 
+use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget;
 
 ?>
@@ -17,24 +18,34 @@ use trntv\yii\datetime\DateTimeWidget;
 </div>
 <div class="row">
     <div class="col-md-4">
-        <label><?php echo Yii::t('app', 'From') ?></label>
+        <label><?php echo Yii::t('app', 'From Date') ?></label>
         <?php echo DateTimeWidget::widget([
             'model' => $model,
             'attribute' => 'start_date',
-            'phpDatetimeFormat' => "yyyy-MM-dd HH:mm:ss",
-            'momentDatetimeFormat' => 'YYYY-MM-DD HH:mm:ss',
+            'phpDatetimeFormat' => "yyyy-MM-dd",
+            'momentDatetimeFormat' => 'YYYY-MM-DD',
         ]) ?>
     </div>
     <div class="col-md-4">
-        <label><?php echo Yii::t('app', 'To') ?></label>
+        <label><?php echo Yii::t('app', 'To Date') ?></label>
         <?php echo DateTimeWidget::widget([
             'model' => $model,
             'attribute' => 'end_date',
-            'phpDatetimeFormat' => "yyyy-MM-dd HH:mm:ss",
-            'momentDatetimeFormat' => 'YYYY-MM-DD HH:mm:ss',
+            'phpDatetimeFormat' => "yyyy-MM-dd",
+            'momentDatetimeFormat' => 'YYYY-MM-DD',
         ]) ?>
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <?php echo $form->field($model, 'start_time')->dropDownList(Holiday::getStartTimeDropdown()) ?>
+    </div>
+    <div class="col-md-4">
+        <?php echo $form->field($model, 'end_time')->dropDownList(Holiday::getEndTimeDropdown()) ?>
+    </div>
+</div>
+
 <br>
 <div class="row">
     <div class="col-md-8">

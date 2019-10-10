@@ -82,12 +82,12 @@ class HolidaySearch extends Holiday
 
         if ($this->start_date) {
             $start = new DateTime($this->start_date);
-            $this->start_date = $start->format("Y-m-d H:i:s");
+            $this->start_date = $start->format("Y-m-d");
         }
 
         if ($this->end_date) {
             $start = new DateTime($this->end_date);
-            $this->end_date = $start->format("Y-m-d 23:59:59");
+            $this->end_date = $start->format("Y-m-d");
         }
 
         // grid filtering conditions

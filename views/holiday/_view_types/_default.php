@@ -35,7 +35,22 @@
                 }
             ],
             'start_date',
+            [
+                'attribute' => 'start_time',
+                'value' => function ($model) {
+                    /** @var \app\models\Holiday $model */
+                    return $model->getStartTimeText();
+                }
+            ],
             'end_date',
+            [
+                'attribute' => 'end_time',
+                'value' => function ($model) {
+                    /** @var \app\models\Holiday $model */
+                    return $model->getEndTimeText();
+                }
+            ],
+            'days',
         ],
         'attributes' => [
             'created_at:datetime',

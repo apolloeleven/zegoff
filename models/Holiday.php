@@ -28,6 +28,8 @@ use yii\db\Exception;
  * @property string $client_entertainment
  * @property string $currency_code
  * @property string $date_require
+ * @property integer $start_time
+ * @property integer $end_time
  * @property int $created_at
  * @property int $updated_at
  * @property int $deleted_at
@@ -60,6 +62,10 @@ class Holiday extends \yii\db\ActiveRecord
     const SCENARIO_DEFAULT = 'default';
     const SCENARIO_CONFIRM = 'confirm';
 
+    const TIME_MORNING = 1;
+    const TIME_AFTERNOON = 2;
+    const TIME_EVENING = 3;
+
     public $workingDays;
 
     /**
@@ -88,6 +94,8 @@ class Holiday extends \yii\db\ActiveRecord
                 'status',
                 'title',
                 'start_date',
+                'start_time',
+                'end_time',
                 'end_date',
                 'description',
             ],
@@ -97,6 +105,8 @@ class Holiday extends \yii\db\ActiveRecord
                 'status',
                 'start_date',
                 'end_date',
+                'start_time',
+                'end_time',
                 'going_to',
                 'trip_reason',
                 'travel_coast',
@@ -113,6 +123,8 @@ class Holiday extends \yii\db\ActiveRecord
                 'title',
                 'start_date',
                 'end_date',
+                'start_time',
+                'end_time',
                 'description',
             ],
             self::SCENARIO_CONFIRM => [
@@ -131,6 +143,9 @@ class Holiday extends \yii\db\ActiveRecord
             [['user_id', 'type', 'status', 'created_at', 'updated_at', 'deleted_at', 'confirmed_at', 'created_by', 'updated_by', 'deleted_by', 'confirmed_by'], 'integer'],
             [['start_date', 'end_date', 'date_require'], 'safe'],
             [['description', 'trip_reason', 'accommodation', 'client_entertainment'], 'string'],
+            [['start_time', 'end_time'], 'integer'],
+            ['start_time', 'in', 'range' => [self::TIME_MORNING, self::TIME_AFTERNOON], 'allowArray' => false],
+            ['end_time', 'in', 'range' => [self::TIME_EVENING, self::TIME_AFTERNOON], 'allowArray' => false],
             [['travel_coast', 'income', 'days'], 'number'],
             [['title', 'going_to'], 'string', 'max' => 255],
             [['currency_code'], 'string', 'max' => 10],
@@ -166,6 +181,8 @@ class Holiday extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'start_date' => Yii::t('app', 'Start Date'),
             'end_date' => Yii::t('app', 'End Date'),
+            'start_time' => Yii::t('app', 'From Time'),
+            'end_time' => Yii::t('app', 'To Time'),
             'description' => Yii::t('app', 'Description'),
             'going_to' => Yii::t('app', 'Going To'),
             'trip_reason' => Yii::t('app', 'Trip Reason'),
@@ -348,5 +365,38 @@ class Holiday extends \yii\db\ActiveRecord
         if (!$user->save()) {
             throw new Exception("User could not saved");
         }
+    }
+
+    public static function getStartTimeDropdown()
+    {
+        $times = self::getTimes();
+        unset($times[Holiday::TIME_EVENING]);
+        return $times;
+    }
+
+    public static function getEndTimeDropdown()
+    {
+        $times = self::getTimes();
+        unset($times[Holiday::TIME_MORNING]);
+        return $times;
+    }
+
+    public static function getTimes()
+    {
+        return [
+            Holiday::TIME_MORNING => Yii::t('app', 'Morning'),
+            Holiday::TIME_EVENING => Yii::t('app', 'Evening'),
+            Holiday::TIME_AFTERNOON => Yii::t('app', 'Afternoon'),
+        ];
+    }
+
+    public function getStartTimeText()
+    {
+        return isset(self::getTimes()[$this->start_time]) ? self::getTimes()[$this->start_time] : null;
+    }
+
+    public function getEndTimeText()
+    {
+        return isset(self::getTimes()[$this->end_time]) ? self::getTimes()[$this->end_time] : null;
     }
 }
