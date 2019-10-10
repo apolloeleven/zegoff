@@ -31,4 +31,9 @@ class WorkingDayQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function workingDays()
+    {
+        return $this->andWhere(['is_working_day' => 1]);
+    }
 }

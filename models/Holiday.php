@@ -38,7 +38,6 @@ use yii\db\Exception;
  * @property int $updated_by
  * @property int $deleted_by
  * @property int $confirmed_by
- * @property array $workingDays
  *
  * @property User $confirmedBy
  * @property User $createdBy
@@ -65,8 +64,6 @@ class Holiday extends \yii\db\ActiveRecord
     const TIME_MORNING = 1;
     const TIME_AFTERNOON = 2;
     const TIME_EVENING = 3;
-
-    public $workingDays;
 
     /**
      * {@inheritdoc}
@@ -156,6 +153,7 @@ class Holiday extends \yii\db\ActiveRecord
 
             [['end_date', 'start_date'], 'required'],
             [['end_date'], 'validateDates', 'on' => [self::SCENARIO_PERSONAL, self::SCENARIO_BUSINESS, self::SCENARIO_CUSTOM]],
+            [['start_time'], 'validateTimes', 'on' => [self::SCENARIO_PERSONAL, self::SCENARIO_BUSINESS, self::SCENARIO_CUSTOM]],
             [['days'], 'checkAvailable', 'on' => [self::SCENARIO_CONFIRM]],
             [['title', 'description'], 'required', 'on' => self::SCENARIO_PERSONAL],
             [['title', 'description'], 'required', 'on' => self::SCENARIO_CUSTOM],
@@ -239,12 +237,24 @@ class Holiday extends \yii\db\ActiveRecord
 
     public function validateDates($attribute)
     {
-        if (strtotime($this->start_date) >= strtotime($this->end_date)) {
+        $startTimeStamp = strtotime($this->start_date);
+        $endTimeStamp = strtotime($this->end_date);
+        if ($startTimeStamp > $endTimeStamp) {
             $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "From must be less than To"));
         }
 
         if ($this->countInRange()) {
             $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "Leave already exists for these dates"));
+        }
+    }
+
+    public function validateTimes($attribute)
+    {
+        $startTimeStamp = strtotime($this->start_date);
+        $endTimeStamp = strtotime($this->end_date);
+
+        if ($startTimeStamp == $endTimeStamp && $this->start_time == $this->end_time) {
+            $this->addError($this->getAttributeLabel($attribute), Yii::t('app', "From and To is a similar dates"));
         }
     }
 
