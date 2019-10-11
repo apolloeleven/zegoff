@@ -19,6 +19,7 @@ class m191002_142142_seed_data extends Migration
             'auth_key' => Yii::$app->getSecurity()->generateRandomString(),
             'access_token' => Yii::$app->getSecurity()->generateRandomString(40),
             'status' => User::STATUS_ACTIVE,
+            'is_staff' => 0,
             'created_at' => time(),
             'updated_at' => time()
         ]);

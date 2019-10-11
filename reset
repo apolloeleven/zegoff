@@ -1,5 +1,5 @@
-php yii migrate/down 100
-php yii rbac-migrate/down 100
+php yii migrate/down 100 --interactive=0
+php yii rbac-migrate/down 100 --interactive=0
 
 php yii migrate --interactive=0
 php yii rbac-migrate --interactive=0

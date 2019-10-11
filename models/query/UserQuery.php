@@ -36,6 +36,11 @@ class UserQuery extends ActiveQuery
      */
     public function byId($id)
     {
-        return $this->andWhere(['id' => $id]);
+        return $this->andWhere([User::tableName() . '.id' => $id]);
+    }
+
+    public function staff()
+    {
+        return $this->andWhere([User::tableName() . '.is_staff' => 1]);
     }
 }
