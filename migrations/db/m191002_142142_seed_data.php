@@ -24,8 +24,8 @@ class m191002_142142_seed_data extends Migration
         ]);
 
         $this->insert('{{%user_profile}}', [
-            'user_id'=>1,
-            'locale'=>Yii::$app->sourceLanguage,
+            'user_id' => 1,
+            'locale' => Yii::$app->sourceLanguage,
             'firstname' => 'John',
             'lastname' => 'Doe'
         ]);
