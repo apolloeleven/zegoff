@@ -14,15 +14,54 @@ use yii\bootstrap\ActiveForm;
 <div class="user-form">
 
     <?php $form = ActiveForm::begin() ?>
-    <?php echo $form->field($model, 'username') ?>
-    <?php echo $form->field($model, 'email') ?>
-    <?php echo $form->field($model, 'firstname') ?>
-    <?php echo $form->field($model, 'lastname') ?>
-    <?php echo $form->field($model, 'status')->dropDownList(User::statuses()) ?>
-    <?php echo $form->field($model, 'position')->dropDownList(User::positions()) ?>
-    <?php echo $form->field($model, 'department_id')->dropDownList(\app\models\Department::getDropdown()) ?>
-    <?php echo $form->field($model, 'days_left')->textInput() ?>
-    <?php echo $form->field($model, 'password')->passwordInput() ?>
+
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'username') ?>
+
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'email') ?>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'firstname') ?>
+
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'lastname') ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'position')->dropDownList(User::positions()) ?>
+
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'department_id')->dropDownList(\app\models\Department::getDropdown()) ?>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'days_left')->textInput() ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'status')->dropDownList(User::statuses()) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $form->field($model, 'password')->passwordInput() ?>
+        </div>
+    </div>
+
 
     <?php echo $form->field($model, 'roles')->checkboxList($roles) ?>
     <div class="form-group">

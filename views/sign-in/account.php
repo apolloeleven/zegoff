@@ -13,13 +13,34 @@ $this->title = Yii::t('app', 'Edit account')
 
     <?php $form = ActiveForm::begin() ?>
 
-    <?php echo $form->field($model, 'username') ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'username') ?>
 
-    <?php echo $form->field($model, 'email') ?>
+        </div>
+    </div>
 
-    <?php echo $form->field($model, 'password')->passwordInput() ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'email') ?>
 
-    <?php echo $form->field($model, 'password_confirm')->passwordInput() ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'password')->passwordInput() ?>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'password_confirm')->passwordInput() ?>
+
+        </div>
+    </div>
+
 
     <div class="form-group">
         <?php echo Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary']) ?>

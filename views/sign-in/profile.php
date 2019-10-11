@@ -15,17 +15,36 @@ $this->title = Yii::t('app', 'Edit profile')
 
     <?php $form = ActiveForm::begin() ?>
 
-    <?php echo $form->field($model, 'firstname')->textInput(['maxlength' => 255]) ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'firstname')->textInput(['maxlength' => 255]) ?>
 
-    <?php echo $form->field($model, 'middlename')->textInput(['maxlength' => 255]) ?>
+        </div>
+    </div>
 
-    <?php echo $form->field($model, 'lastname')->textInput(['maxlength' => 255]) ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'middlename')->textInput(['maxlength' => 255]) ?>
 
+        </div>
+    </div>
 
-    <?php echo $form->field($model, 'gender')->dropDownlist([
-        UserProfile::GENDER_FEMALE => Yii::t('app', 'Female'),
-        UserProfile::GENDER_MALE => Yii::t('app', 'Male')
-    ]) ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'lastname')->textInput(['maxlength' => 255]) ?>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $form->field($model, 'gender')->dropDownlist([
+                UserProfile::GENDER_FEMALE => Yii::t('app', 'Female'),
+                UserProfile::GENDER_MALE => Yii::t('app', 'Male')
+            ]) ?>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <?php echo Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary']) ?>
