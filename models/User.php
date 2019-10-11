@@ -27,6 +27,9 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $logged_at
+ * @property integer $created_by
+ * @property integer $updated_by
+ * @property boolean $is_staff
  * @property string $password write-only password
  * @property float $days_left
  * @property int $department_id
@@ -78,6 +81,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::class,
+            BlameableBehavior::class,
             'auth_key' => [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [
@@ -120,7 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'unique'],
-            [['department_id'], 'integer'],
+            [['department_id', 'created_by', 'updated_by', 'is_staff'], 'integer'],
             [['days_left'], 'safe'],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE],
             ['position', 'default', 'value' => self::POSITION_EMPLOYEE],

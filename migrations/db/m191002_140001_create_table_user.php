@@ -22,9 +22,12 @@ class m191002_140001_create_table_user extends Migration
             'oauth_client_user_id' => $this->string(255),
             'email' => $this->string(255)->notNull()->unique(),
             'status' => $this->tinyInteger(6),
+            'is_staff' => $this->boolean(),
             'created_at' => $this->integer(11)->notNull(),
             'updated_at' => $this->integer(11),
-            'logged_at' => $this->integer(11)
+            'logged_at' => $this->integer(11),
+            'created_by' => $this->integer(11),
+            'updated_by' => $this->integer(11),
         ]);
 
         $this->createTable('{{%user_profile}}', [

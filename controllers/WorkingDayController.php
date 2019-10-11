@@ -27,7 +27,7 @@ class WorkingDayController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [User::ROLE_ADMINISTRATOR],
+                        'roles' => [User::ROLE_MANAGER],
                         'actions' => ['index', 'update', 'view']
                     ],
                 ],

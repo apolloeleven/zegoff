@@ -74,7 +74,7 @@ $user = Yii::$app->user->identity;
                             <?php echo $user->getNotificationCount() ?>
                         </span>
                     </a>
-                    <?php if (Yii::$app->user->can(User::ROLE_ADMINISTRATOR)): ?>
+                    <?php if (Yii::$app->user->can(User::ROLE_MANAGER)): ?>
                         <div class="dropdown-menu dropdown-notifications dropdown-timeline notification-news border-1 animated-fast flipInX">
                             <div class="notifications-heading border-bottom-1 bg-white">
                                 <?php echo Yii::t('app', 'Requests') ?>
@@ -163,7 +163,7 @@ $user = Yii::$app->user->identity;
                     [
                         'label' => Yii::t('app', 'All Requests'),
                         'icon' => 'fa fa-eye',
-                        'visible' => Yii::$app->user->can(User::ROLE_ADMINISTRATOR),
+                        'visible' => Yii::$app->user->can(User::ROLE_MANAGER),
                         'url' => Yii::$app->user->identity->getRequestUrl()
                     ],
                     [

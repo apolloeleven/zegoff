@@ -21,7 +21,7 @@ class RequestController extends \yii\web\Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [User::ROLE_ADMINISTRATOR],
+                        'roles' => [User::ROLE_MANAGER],
                         'actions' => ['index', 'view', 'confirm']
                     ],
                 ],
