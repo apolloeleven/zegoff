@@ -39,33 +39,6 @@ class m191007_083815_create_holiday_table extends Migration
             'confirmed_by' => $this->integer(11),
         ]);
 
-        $this->addForeignKey('FK_holiday_user_created_by_id',
-            '{{%holiday}}',
-            'created_by',
-            '{{%user}}',
-            'id'
-        );
-        $this->addForeignKey('FK_holiday_user_updated_by_id',
-            '{{%holiday}}',
-            'updated_by',
-            '{{%user}}',
-            'id'
-        );
-
-        $this->addForeignKey('FK_holiday_user_deleted_by_id',
-            '{{%holiday}}',
-            'deleted_by',
-            '{{%user}}',
-            'id'
-        );
-
-        $this->addForeignKey('FK_holiday_user_confirmed_by_id',
-            '{{%holiday}}',
-            'confirmed_by',
-            '{{%user}}',
-            'id'
-        );
-
     }
 
     /**

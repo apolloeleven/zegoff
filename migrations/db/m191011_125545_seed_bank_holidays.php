@@ -39,9 +39,7 @@ class m191011_125545_seed_bank_holidays extends Migration
      */
     public function safeDown()
     {
-        $this->delete('{{%bank_holiday}}', [
-            'id' => [1, 2]
-        ]);
+        $this->delete('{{%bank_holiday}}');
     }
 
 }

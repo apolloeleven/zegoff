@@ -38,9 +38,7 @@ class m191011_125535_seed_departments extends Migration
      */
     public function safeDown()
     {
-        $this->delete('{{%department}}', [
-            'id' => [1, 2]
-        ]);
+        $this->delete('{{%department}}');
 
     }
 

@@ -24,25 +24,6 @@ class m191007_074200_add_bank_holiday_table extends Migration
             'deleted_by' => $this->integer(11),
         ]);
 
-        $this->addForeignKey('FK_bank_holiday_user_created_by_id',
-            '{{%bank_holiday}}',
-            'created_by',
-            '{{%user}}',
-            'id'
-        );
-        $this->addForeignKey('FK_bank_holiday_user_updated_by_id',
-            '{{%bank_holiday}}',
-            'updated_by',
-            '{{%user}}',
-            'id'
-        );
-
-        $this->addForeignKey('FK_bank_holiday_user_deleted_by_id',
-            '{{%bank_holiday}}',
-            'deleted_by',
-            '{{%user}}',
-            'id'
-        );
     }
 
     /**

@@ -92,11 +92,11 @@ class m191011_125620_seed_users extends Migration
     {
 
         $this->delete('{{%user_profile}}', [
-            'user_id' => [2, 3, 4]
+            '!=', 'user_id', 1
         ]);
 
         $this->delete('{{%user}}', [
-            'id' => [2, 3, 4]
+            '!=', 'id', 1
         ]);
     }
 }

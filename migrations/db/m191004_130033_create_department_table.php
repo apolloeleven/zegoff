@@ -23,25 +23,6 @@ class m191004_130033_create_department_table extends Migration
             'deleted_by' => $this->integer(11),
         ]);
 
-        $this->addForeignKey('FK_department_user_created_by_id',
-            '{{%department}}',
-            'created_by',
-            '{{%user}}',
-            'id'
-        );
-        $this->addForeignKey('FK_department_user_updated_by_id',
-            '{{%department}}',
-            'updated_by',
-            '{{%user}}',
-            'id'
-        );
-
-        $this->addForeignKey('FK_department_user_deleted_by_id',
-            '{{%department}}',
-            'deleted_by',
-            '{{%user}}',
-            'id'
-        );
     }
 
     /**
