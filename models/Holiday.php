@@ -315,6 +315,7 @@ class Holiday extends \yii\db\ActiveRecord
         $id = $this->id ?: '';
         return Holiday::find()->andWhere(['user_id' => $this->user_id])
             ->notDeleted()
+            ->andWhere(['status' => self::STATUS_ACCEPTED])
             ->andWhere(['or', ['and', ['<=', 'start_date', $this->start_date],
                     ['>=', 'end_date', $this->start_date]], ['and', ['<=', 'start_date', $this->end_date],
                     ['>=', 'end_date', $this->end_date]], ['and', ['>=', 'start_date', $this->start_date],
