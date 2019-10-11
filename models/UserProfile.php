@@ -81,5 +81,16 @@ class UserProfile extends ActiveRecord
         return null;
     }
 
+    /**
+     * @param null $default
+     * @return bool|null|string
+     */
+    public function getAvatar($default = null)
+    {
+        return $this->avatar_path
+            ? Yii::getAlias('@storageUrl/source/' . $this->avatar_path)
+            : ($default ?: '/img/anonymous.jpg');
+    }
+
 
 }

@@ -410,4 +410,40 @@ class Holiday extends \yii\db\ActiveRecord
     {
         return isset(self::getTimes()[$this->end_time]) ? self::getTimes()[$this->end_time] : null;
     }
+
+    public function getDisplayDate()
+    {
+        return \Yii::$app->formatter->asRelativeTime($this->created_at);
+    }
+
+    public function getCreatorAvatar()
+    {
+        return $this->createdBy ? $this->createdBy->userProfile->getAvatar() : '';
+    }
+
+    public function getCreatorPublicIdentity()
+    {
+        return $this->createdBy ? $this->createdBy->getPublicIdentity() : '';
+    }
+
+    public function getNotificationText()
+    {
+        $text = $this->user->userProfile->getFullName() . " wants ";
+        if ($this->type == self::TYPE_BUSINESS) {
+            $text .= Yii::t('app', 'business leave');
+        } elseif ($this->type == self::TYPE_PERSONAL) {
+            $text .= Yii::t('app', 'personal leave');
+        } else {
+            $text .= Yii::t('app', '{name} leave', [
+                'name' => Yii::$app->holidaySettings->customHolidayName
+            ]);
+        }
+
+        return $text;
+    }
+
+    public function getDetailUrl()
+    {
+        return ['/request/view', 'id' => $this->id];
+    }
 }

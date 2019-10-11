@@ -376,4 +376,45 @@ class User extends ActiveRecord implements IdentityInterface
             ->all();
         return $users;
     }
+
+
+    public function notificationQuery()
+    {
+        $query = Holiday::find()
+            ->notDeleted()
+            ->joinWith('user.department')
+            ->joinWith('user.userProfile')
+            ->andWhere([Holiday::tableName() . '.status' => Holiday::STATUS_PENDING,])
+            ->andWhere(['!=', Holiday::tableName() . '.user_id', $this->id]);
+
+        if ($this->position == self::POSITION_HEAD_OF_DEP) {
+            $query->andWhere([
+                User::tableName() . '.department_id' => $this->department_id,
+            ]);
+        }
+
+        return $query;
+    }
+
+    public function getNotificationCount()
+    {
+
+        return $this->notificationQuery()->count();
+    }
+
+    public function getNotificationHolidays()
+    {
+        return $this->notificationQuery()->all();
+    }
+
+
+    public function getRequestUrl()
+    {
+        if ($this->position == User::POSITION_HR) {
+            return ['/request/index'];
+        }
+
+        return ['/request/index', 'HolidaySearch[department]' => $this->department_id];
+    }
+
 }

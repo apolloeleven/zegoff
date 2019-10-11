@@ -9,15 +9,9 @@
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
+$this->title = Yii::t('app', 'Calendar');
+
 echo edofre\fullcalendar\Fullcalendar::widget([
-    'clientOptions' => [
-        'eventResize' => new JsExpression("
-                function(event, delta, revertFunc, jsEvent, ui, view) {
-                    console.log(event.id);
-                    console.log(delta);
-                }
-            "),
-    ],
     'events' => Url::to(['/site/events']),
 ]);
 ?>

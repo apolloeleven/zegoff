@@ -94,13 +94,8 @@ class RequestController extends \yii\web\Controller
         }
 
         $transaction->commit();
-        if (Yii::$app->user->identity->position == User::POSITION_HR) {
-            $url = ['index'];
-        } else {
-            $url = ['index', 'HolidaySearch[department]' => Yii::$app->user->identity->department_id];
-        }
 
-        return $this->redirect($url);
+        return $this->redirect(Yii::$app->user->identity->getRequestUrl());
     }
 
     /**

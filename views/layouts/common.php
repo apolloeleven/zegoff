@@ -2,6 +2,7 @@
 /**
  * @var $this    yii\web\View
  * @var $content string
+ * @var $user User
  */
 
 use app\models\User;
@@ -13,7 +14,7 @@ use yii\log\Logger;
 use yii\widgets\Breadcrumbs;
 
 $bundle = \app\assets\AppAsset::register($this);
-
+$user = Yii::$app->user->identity;
 
 ?>
 
@@ -65,28 +66,47 @@ $bundle = \app\assets\AppAsset::register($this);
         </div>
         <div class="clearfix-xxs"></div>
         <div class="navbar-items-2">
-            <!--Choose languages dropdown-->
-<!--            <ul class="nav navbar-nav navbar-actions">-->
-<!--                <li>-->
-<!--                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">-->
-<!--                        <i class="fa fa-bell"></i>-->
-<!--                        <span class="badge badge-danger badge-xs">-->
-<!--                            1-->
-<!--                        </span>-->
-<!--                    </a>-->
-<!--                    <div class="dropdown-menu dropdown-notifications dropdown-timeline notification-news border-1 animated-fast flipInX">-->
-<!--                        <div class="notifications-heading border-bottom-1 bg-white">-->
-<!--                            --><?php //echo Yii::t('app', 'Requests') ?>
-<!--                        </div>-->
-<!--                        <ul class="notifications-body max-h-300">-->
-<!---->
-<!--                        </ul>-->
-<!--                        <div class="notifications-footer border-top-1 bg-white text-center">-->
-<!--                            --><?php //echo Html::a(Yii::t('app', 'View all'), ['/request/index']) ?>
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </li>-->
-<!--            </ul>-->
+            <ul class="nav navbar-nav navbar-actions">
+                <li>
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-danger badge-xs">
+                            <?php echo $user->getNotificationCount() ?>
+                        </span>
+                    </a>
+                    <?php if (Yii::$app->user->can(User::ROLE_ADMINISTRATOR)): ?>
+                        <div class="dropdown-menu dropdown-notifications dropdown-timeline notification-news border-1 animated-fast flipInX">
+                            <div class="notifications-heading border-bottom-1 bg-white">
+                                <?php echo Yii::t('app', 'Requests') ?>
+                            </div>
+                            <ul class="notifications-body max-h-300">
+                                <?php foreach ($user->getNotificationHolidays() as $items): ?>
+                                    <?php /** @var $items \app\models\Holiday */ ?>
+                                    <li style="cursor: pointer"
+                                        data-url="<?php echo Url::to($items->getDetailUrl()) ?>">
+                                        <div class="notification">
+                                            <img class="notification-image"
+                                                 src="/img/logo/plane.png"
+                                                 alt="<?php echo $items->getCreatorPublicIdentity() ?>">
+                                            <div class="notification-msg">
+                                                <h5 class="notification-sub-heading text-gray-darker">
+                                                    <?php echo $items->getNotificationText() ?>
+                                                </h5>
+                                                <p class="body-text"><i
+                                                            class="fa fa-clock-o"></i> <?php echo $items->getDisplayDate() ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <div class="notifications-footer border-top-1 bg-white text-center">
+                                <?php echo Html::a(Yii::t('app', 'View all'), $user->getRequestUrl()) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </li>
+            </ul>
         </div>
         <div class="clearfix"></div>
     </nav>
@@ -144,10 +164,7 @@ $bundle = \app\assets\AppAsset::register($this);
                         'label' => Yii::t('app', 'All Requests'),
                         'icon' => 'fa fa-eye',
                         'visible' => Yii::$app->user->can(User::ROLE_ADMINISTRATOR),
-                        'url' => Yii::$app->user->identity->position != User::POSITION_HR ? [
-                            '/request/index',
-                            'HolidaySearch[department]' => Yii::$app->user->identity->department_id
-                        ] : ['/request/index'],
+                        'url' => Yii::$app->user->identity->getRequestUrl()
                     ],
                     [
                         'label' => Yii::t('app', 'Employees'),
@@ -207,5 +224,17 @@ $bundle = \app\assets\AppAsset::register($this);
         </div>
     </div>
 </div><!-- ./wrapper -->
+<?php $this->registerJs("
+var dropNot = $('.dropdown-notifications')
+var notBody = dropNot.find('.notifications-body')
+var lis = notBody.find('li')
+lis.each(function(){
+	$(this).click(function(){
+		var that = $(this);
+		location.href = that.data('url')
+	})
+})
 
+") ?>
 <?php $this->endContent(); ?>
+
