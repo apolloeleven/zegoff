@@ -224,7 +224,7 @@ class Holiday extends \yii\db\ActiveRecord
         return [
             self::TYPE_PERSONAL => Yii::t('app', 'Personal'),
             self::TYPE_BUSINESS => Yii::t('app', 'Business'),
-            self::TYPE_CUSTOM => Yii::t('app', env('CUSTOM_HOLIDAY_NAME', 'Custom'))
+            self::TYPE_CUSTOM => Yii::t('app', Yii::$app->holidaySettings->customHolidayName)
         ];
     }
 

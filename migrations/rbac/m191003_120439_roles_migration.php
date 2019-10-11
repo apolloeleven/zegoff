@@ -26,8 +26,6 @@ class m191003_120439_roles_migration extends Migration
         $this->auth->addChild($admin, $user);
 
         $this->auth->assign($admin, 1);
-        $this->auth->assign($manager, 2);
-        $this->auth->assign($user, 3);
     }
 
     public function down()

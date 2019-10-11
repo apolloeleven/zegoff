@@ -20,6 +20,8 @@ class UserForm extends Model
     public $department_id;
     public $days_left;
     public $roles;
+    public $firstname;
+    public $lastname;
 
     private $model;
 
@@ -32,6 +34,7 @@ class UserForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             [['department_id'], 'integer'],
             [['days_left'], 'safe'],
+            [['firstname', 'lastname'], 'string'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => User::class, 'filter' => function ($query) {
                 if (!$this->getModel()->isNewRecord) {
@@ -86,6 +89,8 @@ class UserForm extends Model
         $this->position = $model->position;
         $this->department_id = $model->department_id;
         $this->days_left = $model->days_left;
+        $this->firstname = $model->userProfile->lastname;
+        $this->lastname = $model->userProfile->firstname;
         $this->model = $model;
         $this->roles = ArrayHelper::getColumn(
             Yii::$app->authManager->getRolesByUser($model->getId()),
@@ -134,7 +139,15 @@ class UserForm extends Model
                 throw new Exception('Model not saved');
             }
             if ($isNewRecord) {
-                $model->afterSignup();
+                $model->afterSignup([
+                    'fisrstname' => $this->firstname,
+                    'lastname' => $this->lastname,
+                ]);
+            } else {
+                $userProfile = $model->userProfile;
+                $userProfile->firstname = $this->firstname;
+                $userProfile->lastname = $this->lastname;
+                $userProfile->save();
             }
             $auth = Yii::$app->authManager;
             $auth->revokeAll($model->getId());

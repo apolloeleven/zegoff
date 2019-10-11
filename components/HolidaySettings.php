@@ -23,6 +23,8 @@ class HolidaySettings extends Component
         Holiday::TYPE_CUSTOM => '#4d8dca'
     ];
 
+    public $customHolidayName = 'Custom';
+
     /**
      * @param $type
      * @return mixed

@@ -66,27 +66,27 @@ $bundle = \app\assets\AppAsset::register($this);
         <div class="clearfix-xxs"></div>
         <div class="navbar-items-2">
             <!--Choose languages dropdown-->
-            <ul class="nav navbar-nav navbar-actions">
-                <li>
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                        <i class="fa fa-bell"></i>
-                        <span class="badge badge-danger badge-xs">
-                                4
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-notifications dropdown-timeline notification-news border-1 animated-fast flipInX">
-                        <div class="notifications-heading border-bottom-1 bg-white">
-                            <?php echo Yii::t('app', 'Timeline') ?>
-                        </div>
-                        <ul class="notifications-body max-h-300">
-
-                        </ul>
-                        <div class="notifications-footer border-top-1 bg-white text-center">
-                            <?php echo Html::a(Yii::t('app', 'View all'), ['/timeline-event/index']) ?>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+<!--            <ul class="nav navbar-nav navbar-actions">-->
+<!--                <li>-->
+<!--                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">-->
+<!--                        <i class="fa fa-bell"></i>-->
+<!--                        <span class="badge badge-danger badge-xs">-->
+<!--                            1-->
+<!--                        </span>-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu dropdown-notifications dropdown-timeline notification-news border-1 animated-fast flipInX">-->
+<!--                        <div class="notifications-heading border-bottom-1 bg-white">-->
+<!--                            --><?php //echo Yii::t('app', 'Requests') ?>
+<!--                        </div>-->
+<!--                        <ul class="notifications-body max-h-300">-->
+<!---->
+<!--                        </ul>-->
+<!--                        <div class="notifications-footer border-top-1 bg-white text-center">-->
+<!--                            --><?php //echo Html::a(Yii::t('app', 'View all'), ['/request/index']) ?>
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </ul>-->
         </div>
         <div class="clearfix"></div>
     </nav>
@@ -103,17 +103,17 @@ $bundle = \app\assets\AppAsset::register($this);
                        data-title="Profile">
                         <i class="fa fa-user"></i>
                     </a>
-                    <a href="<?php echo Url::to(['/user/index']) ?>" class="btn btn-info btn-outline"
-                       data-title="Users">
-                        <i class="fa fa-users"></i>
+                    <a href="<?php echo Url::to(['/sign-in/account']) ?>" class="btn btn-info btn-outline"
+                       data-title="Account">
+                        <i class="fa fa-key"></i>
                     </a>
-                    <a href="<?php echo Url::to(['/translation/default/index']) ?>" class="btn btn-info btn-outline"
-                       data-title="Translations">
-                        <i class="fa fa-language"></i>
+                    <a href="<?php echo Url::to(['/site/index']) ?>" class="btn btn-info btn-outline"
+                       data-title="Calendar">
+                        <i class="fa fa-calendar"></i>
                     </a>
-                    <a href="<?php echo Url::to(['/system/cache/index']) ?>" class="btn btn-info btn-outline"
-                       data-title="Cache">
-                        <i class="fa fa-refresh"></i>
+                    <a href="<?php echo Url::to(['/holiday/index']) ?>" class="btn btn-info btn-outline"
+                       data-title="Holiday">
+                        <i class="fa fa-file"></i>
                     </a>
                 </div>
             </div>

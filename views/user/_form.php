@@ -16,9 +16,12 @@ use yii\bootstrap\ActiveForm;
     <?php $form = ActiveForm::begin() ?>
     <?php echo $form->field($model, 'username') ?>
     <?php echo $form->field($model, 'email') ?>
+    <?php echo $form->field($model, 'firstname') ?>
+    <?php echo $form->field($model, 'lastname') ?>
     <?php echo $form->field($model, 'status')->dropDownList(User::statuses()) ?>
     <?php echo $form->field($model, 'position')->dropDownList(User::positions()) ?>
     <?php echo $form->field($model, 'department_id')->dropDownList(\app\models\Department::getDropdown()) ?>
+    <?php echo $form->field($model, 'days_left')->textInput() ?>
     <?php echo $form->field($model, 'password')->passwordInput() ?>
 
     <?php echo $form->field($model, 'roles')->checkboxList($roles) ?>
