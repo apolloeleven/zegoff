@@ -51,8 +51,6 @@ $user = Yii::$app->user->identity;
                         <li><a href="<?php echo Url::to(['/sign-in/account']) ?>"><span
                                         class="fa fa-key"></span> &nbsp;&nbsp;Account</a>
                         </li>
-                        <li><a href="<?php echo Url::to(['/timeline-event/index']) ?>"><i class="fa fa-code-fork"></i>
-                                &nbsp;&nbsp;Timeline</a></li>
                         <li class="divider"></li>
                         <li>
                             <a href="<?php echo Url::to(['/sign-in/logout']) ?>" data-method="post">
