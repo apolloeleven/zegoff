@@ -32,6 +32,17 @@ This will read `.env` file and if the user
  - Execute `php yii app/setup` command which will set cookie validation key in `.env` file and also create 
  tables in database.
 
+## Demo accounts
+
+Username: `hr`<br>
+Password: `hrmanager`
+
+Username: `head`<br>
+Password: `headofdepartment`
+
+Username: `employee`<br>
+Password: `employee`
+
 DIRECTORY STRUCTURE
 -------------------
 
