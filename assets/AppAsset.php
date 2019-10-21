@@ -22,7 +22,6 @@ class AppAsset extends AssetBundle
 
     public $css = [
         'bundle/lobiadmin.css',
-        'css/style.css',
         'css/bootstrap-tour.min.css',
     ];
     public $js = [
