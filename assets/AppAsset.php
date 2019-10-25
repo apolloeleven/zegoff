@@ -22,7 +22,6 @@ class AppAsset extends AssetBundle
 
     public $css = [
         'bundle/lobiadmin.css',
-        'css/style.css',
         'css/bootstrap-tour.min.css',
     ];
     public $js = [
@@ -44,6 +43,5 @@ class AppAsset extends AssetBundle
         'yii\jui\JuiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         FontAwesome::class,
-        Html5shiv::class,
     ];
 }
