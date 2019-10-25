@@ -27,8 +27,6 @@ class m191011_125720_seed_holidays extends Migration
         $holiday->end_time = Holiday::TIME_EVENING;
         $holiday->created_at = time();
         $holiday->updated_at = time();
-        $holiday->created_by = 4;
-        $holiday->updated_by = 4;
         $holiday->save();
 
         $holiday->setScenario(Holiday::SCENARIO_CONFIRM);
@@ -37,6 +35,7 @@ class m191011_125720_seed_holidays extends Migration
         $holiday->confirmed_at = time();
         $holiday->validate();
         $holiday->save();
+        Holiday::updateAll(['created_by' => 4, 'updated_by' => 4], ['id' => $holiday->id]);
 
 
         $weekInTimeStamp = 604800;
@@ -64,6 +63,7 @@ class m191011_125720_seed_holidays extends Migration
         $holiday->confirmed_at = time();
         $holiday->validate();
         $holiday->save();
+        Holiday::updateAll(['created_by' => 4, 'updated_by' => 4], ['id' => $holiday->id]);
 
     }
 
