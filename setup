@@ -1,1 +1,2 @@
+php create-database.php
 php yii app/setup
