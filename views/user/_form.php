@@ -11,62 +11,71 @@ use yii\bootstrap\ActiveForm;
 /* @var $permissions yii\rbac\Permission[] */
 ?>
 
-<div class="user-form">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3><?php echo $this->title ?></h3>
+    </div>
+    <div class="panel-body">
 
-    <?php $form = ActiveForm::begin() ?>
+        <div class="user-form">
 
-    <div class="row">
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'username') ?>
+            <?php $form = ActiveForm::begin() ?>
 
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'email') ?>
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'username') ?>
+
+                </div>
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'email') ?>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'firstname') ?>
+
+                </div>
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'lastname') ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'position')->dropDownList(User::positions()) ?>
+
+                </div>
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'department_id')->dropDownList(\app\models\Department::getDropdown()) ?>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'days_left')->textInput() ?>
+                </div>
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'status')->dropDownList(User::statuses()) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'password')->passwordInput() ?>
+                </div>
+            </div>
+
+
+            <?php echo $form->field($model, 'roles')->checkboxList($roles) ?>
+            <div class="form-group">
+                <?php echo Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            </div>
+            <?php ActiveForm::end() ?>
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'firstname') ?>
-
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'lastname') ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'position')->dropDownList(User::positions()) ?>
-
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'department_id')->dropDownList(\app\models\Department::getDropdown()) ?>
-
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'days_left')->textInput() ?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'status')->dropDownList(User::statuses()) ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <?php echo $form->field($model, 'password')->passwordInput() ?>
-        </div>
-    </div>
-
-
-    <?php echo $form->field($model, 'roles')->checkboxList($roles) ?>
-    <div class="form-group">
-        <?php echo Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-    </div>
-    <?php ActiveForm::end() ?>
-
 </div>
+

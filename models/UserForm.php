@@ -35,7 +35,7 @@ class UserForm extends Model
             [['department_id'], 'integer'],
             [['days_left'], 'safe'],
             [['firstname', 'lastname'], 'string'],
-            ['username', 'required'],
+            [['username', 'firstname', 'lastname'], 'required'],
             ['username', 'unique', 'targetClass' => User::class, 'filter' => function ($query) {
                 if (!$this->getModel()->isNewRecord) {
                     $query->andWhere(['not', ['id' => $this->getModel()->id]]);
