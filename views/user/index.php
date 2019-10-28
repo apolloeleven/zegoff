@@ -2,10 +2,8 @@
 
 use app\grid\EnumColumn;
 use app\models\User;
-use trntv\yii\datetime\DateTimeWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\web\JsExpression;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -34,16 +32,25 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => [
             'id',
+            [
+                'attribute' => 'fullName',
+                'value' => 'userProfile.fullName'
+            ],
             'username',
             'email:email',
+            [
+                'attribute' => 'position',
+                'filter' => User::positions(),
+                'value' => function($model){
+                    return User::positions()[$model->position];
+                }
+            ],
             [
                 'class' => EnumColumn::class,
                 'attribute' => 'status',
                 'enum' => User::statuses(),
                 'filter' => User::statuses()
             ],
-            // 'updated_at',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
