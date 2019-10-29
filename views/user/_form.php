@@ -20,17 +20,6 @@ use yii\bootstrap\ActiveForm;
         <div class="user-form">
 
             <?php $form = ActiveForm::begin() ?>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <?php echo $form->field($model, 'username') ?>
-
-                </div>
-                <div class="col-md-3">
-                    <?php echo $form->field($model, 'email') ?>
-
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-3">
                     <?php echo $form->field($model, 'firstname') ?>
@@ -52,7 +41,15 @@ use yii\bootstrap\ActiveForm;
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'username') ?>
 
+                </div>
+                <div class="col-md-3">
+                    <?php echo $form->field($model, 'email') ?>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3">
                     <?php echo $form->field($model, 'days_left')->textInput() ?>
