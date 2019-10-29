@@ -89,8 +89,8 @@ class UserForm extends Model
         $this->position = $model->position;
         $this->department_id = $model->department_id;
         $this->days_left = $model->days_left;
-        $this->firstname = $model->userProfile->lastname;
-        $this->lastname = $model->userProfile->firstname;
+        $this->firstname = $model->userProfile->firstname;
+        $this->lastname = $model->userProfile->lastname;
         $this->model = $model;
         $this->roles = ArrayHelper::getColumn(
             Yii::$app->authManager->getRolesByUser($model->getId()),
@@ -140,7 +140,7 @@ class UserForm extends Model
             }
             if ($isNewRecord) {
                 $model->afterSignup([
-                    'fisrstname' => $this->firstname,
+                    'firstname' => $this->firstname,
                     'lastname' => $this->lastname,
                 ]);
             } else {
