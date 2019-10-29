@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Users');
+$this->title = Yii::t('app', 'Employees');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php echo Html::a(Yii::t('app', 'Create {modelClass}', [
+        <?php echo Html::a(Yii::t('app', 'Create new Employee', [
             'modelClass' => 'User',
         ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

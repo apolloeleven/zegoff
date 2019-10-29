@@ -202,7 +202,6 @@ $user = Yii::$app->user->identity;
         <div id="ribbon" class="hidden-print">
             <a href="<?php echo Url::to(['/']) ?>" class="btn-ribbon" data-container="#main" data-toggle="tooltip"
                data-title="Show dashboard"><i class="fa fa-home"></i></a>
-            <span class="vertical-devider">&nbsp;</span>
             <?php echo Breadcrumbs::widget([
                 'homeLink' => false,
                 'tag' => 'ol',
