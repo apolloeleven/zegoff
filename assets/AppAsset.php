@@ -35,6 +35,7 @@ class AppAsset extends AssetBundle
         'js/bootstrap-tour.min.js',
         'js/lobiplugins/bootstrap-datepicker.js',
         'js/modal.js',
+        'js/user-form.js',
     ];
 
     public $depends = [

@@ -13,4 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'roles' => $roles
     ]) ?>
 
+    <?php $this->registerJsFile('@web/js/user-form.js') ?>
+
 </div>
