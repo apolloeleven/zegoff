@@ -6,8 +6,8 @@ firstname.addEventListener('input', updateFirst);
 lastname.addEventListener('input', updateLast);
 
 function updateFirst(e) {
-    firstNameValue = e.target.value.toLowerCase().replace(/\s/g, '');
-    lastNameValue = username.value.split(".");
+    let firstNameValue = e.target.value.toLowerCase().replace(/\s/g, '');
+    let lastNameValue = username.value.split(".");
     firstNameValue = firstNameValue.replace(/\./g, '');
 
     if (lastNameValue[1]) {
@@ -19,8 +19,8 @@ function updateFirst(e) {
 }
 
 function updateLast(e) {
-    lastNameValue = e.target.value.toLowerCase().replace(/\s/g, '');
-    firstNameValue = firstname.value.toLowerCase().replace(/\s/g, '');
+    let lastNameValue = e.target.value.toLowerCase().replace(/\s/g, '');
+    let firstNameValue = firstname.value.toLowerCase().replace(/\s/g, '');
     lastNameValue = lastNameValue.replace(/\./g, '');
     lastNameValue = `.${lastNameValue}`;
     firstNameValue = firstNameValue.replace(/\./g, '');
