@@ -73,6 +73,10 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        //todo pass user specific roles
+        $userRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        $userRoleName = array_keys($userRoles);
+
         $model = new UserForm();
         $model->setScenario('create');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -81,7 +85,7 @@ class UserController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
+            'roles' => ArrayHelper::map(Yii::$app->authManager->getChildRoles($userRoleName[0]), 'name', 'name')
         ]);
     }
 
