@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => function ($model) {
                     // user status 1 == not active, 2 == active, 3 === deleted
                     if ($model->status == 1) {
-                        return ['style' => 'color: yellow;'];
+                        return ['style' => 'color: #FFA500;'];
                     } else if ($model->status == 2) {
                         return ['style' => 'color: green;'];
                     } else {

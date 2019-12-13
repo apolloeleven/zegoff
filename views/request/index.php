@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model->getStatusText() == "Accepted") {
                         return ['style' => 'color: green;'];
                     } else if ($model->getStatusText() == "Pending") {
-                        return ['style' => 'color: yellow;'];
+                        return ['style' => 'color: #FFA500;'];
                     } else {
                         return ['style' => 'color: red;'];
                     }
