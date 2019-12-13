@@ -52,6 +52,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'filter' => Holiday::statuses(),
+                'contentOptions' => function ($model) {
+                    /** @var $model Holiday */
+                    if ($model->getStatusText() == "Accepted") {
+                        return ['style' => 'color: green;'];
+                    } else if ($model->getStatusText() == "Pending") {
+                        return ['style' => 'color: yellow;'];
+                    } else {
+                        return ['style' => 'color: red;'];
+                    }
+                },
                 'value' => function ($model) {
                     /** @var $model Holiday */
                     return $model->getStatusText();

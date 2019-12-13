@@ -1,6 +1,7 @@
 <?php
 
 use app\grid\EnumColumn;
+use app\models\Holiday;
 use app\models\User;
 use trntv\yii\datetime\DateTimeWidget;
 use yii\helpers\Html;
@@ -57,6 +58,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => EnumColumn::class,
                 'attribute' => 'status',
+                'contentOptions' => function ($model) {
+                    // user status 1 == not active, 2 == active, 3 === deleted
+                    if ($model->status == 1) {
+                        return ['style' => 'color: yellow;'];
+                    } else if ($model->status == 2) {
+                        return ['style' => 'color: green;'];
+                    } else {
+                        return ['style' => 'color: red;'];
+                    }
+                },
                 'enum' => User::statuses(),
                 'filter' => User::statuses()
             ],
