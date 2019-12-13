@@ -79,7 +79,7 @@ class UserSearch extends User
         if ($this->created_at) {
 
             $query->andFilterWhere([
-                'FROM_UNIXTIME(created_at, "%Y-%m-%d")' => $this->created_at
+                'FROM_UNIXTIME(user.created_at, "%Y-%m-%d")' => $this->created_at
             ]);
         }
 
