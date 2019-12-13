@@ -2,8 +2,10 @@
 
 use app\grid\EnumColumn;
 use app\models\User;
+use trntv\yii\datetime\DateTimeWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\JsExpression;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -36,13 +38,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'fullName',
                 'value' => 'userProfile.fullName'
             ],
-            'username',
             'email:email',
             [
                 'attribute' => 'position',
                 'filter' => User::positions(),
-                'value' => function($model){
+                'value' => function ($model) {
                     return User::positions()[$model->position];
+                }
+            ],
+
+            [
+                'attribute' => 'department_id',
+                'filter' => \app\models\Department::getDropdown(),
+                'value' => function ($model) {
+                    return $model->department->name;
                 }
             ],
             [
@@ -50,6 +59,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'enum' => User::statuses(),
                 'filter' => User::statuses()
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->created_at);
+                },
+                'label' => 'Created at',
+                'filter' => DateTimeWidget::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'phpDatetimeFormat' => "yyyy-MM-dd",
+                    'momentDatetimeFormat' => 'YYYY-MM-DD',
+                    'clientEvents' => [
+                        'dp.change' => new JsExpression('(e) => $(e.target).find("input").trigger("change.yiiGridView")')
+                    ],
+                ])
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
