@@ -34,7 +34,7 @@
                     return $model->getStatusText();
                 }
             ],
-            'start_date',
+            'start_date:date',
             [
                 'attribute' => 'start_time',
                 'value' => function ($model) {
@@ -42,7 +42,7 @@
                     return $model->getStartTimeText();
                 }
             ],
-            'end_date',
+            'end_date:date',
             [
                 'attribute' => 'end_time',
                 'value' => function ($model) {
