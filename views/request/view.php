@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'fieldConfig' => ['inputOptions' => ['class' => 'form-control input-sm' ,'disabled' => true]],
     ]); ?>
 
-    <?php echo $this->render('@app/views/holiday/_form_types/_' . $model->getViewName(), ['form' => $form, 'model' => $model]) ?>
+    <?php echo $this->render('@app/views/holiday/_form_types/_' . $model->getViewName(), ['form' => $form, 'model' => $model, 'disabled' => true]) ?>
 
     <?php ActiveForm::end(); ?>
 

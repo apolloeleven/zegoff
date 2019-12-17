@@ -12,14 +12,16 @@
 use yii\widgets\DetailView; ?>
 
 
-<?= DetailView::widget([
-    'model' => $model,
-    'options' => ['class' => 'table detail-view', 'style' => '  font-family: sans-serif;padding: 0 16px;font-style: italic;font-size: 16px;'],
-    'attributes' => array_merge(array_merge($main_attributes, [
-        'title',
-        'description:ntext',
-    ]), $attributes),
-]) ?>
-
-
+<table class="table">
+    <tbody>
+    <tr>
+        <td><?php echo Yii::t('app', 'Title') ?></td>
+        <td><?php echo $model->title ?></td>
+    </tr>
+    <tr>
+        <td><?php echo Yii::t('app', 'Description') ?></td>
+        <td><?php echo Yii::$app->formatter->asNtext($model->description) ?></td>
+    </tr>
+    </tbody>
+</table>
 

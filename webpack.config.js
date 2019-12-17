@@ -3,7 +3,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
-    lobiadmin: path.resolve(__dirname, './web/less/style.less'),
+    style: path.resolve(__dirname, './web/less/style.less'),
   },
   output: {
     path: path.resolve(__dirname, './web/bundle'),

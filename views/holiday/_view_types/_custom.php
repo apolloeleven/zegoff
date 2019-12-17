@@ -15,8 +15,15 @@ use yii\widgets\DetailView; ?>
     'attributes' => array_merge(array_merge($main_attributes, [
         'title',
         'description:ntext',
+        'going_to',
+        'trip_reason:ntext',
+        'travel_coast',
+        'income',
+        'accommodation:ntext',
+        'client_entertainment:ntext',
+        'currency_code',
+        'date_require',
     ]), $attributes),
 ]) ?>
-
 
 

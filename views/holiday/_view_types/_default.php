@@ -8,52 +8,56 @@
  * @var $model app\models\Holiday
  */
 ?>
-<?php echo $this->render('@app/views/holiday/_view_types/_' . $model->getViewName(),
-    [
-        'model' => $model,
-        'main_attributes' => [
-            'id',
-            [
-                'label' => Yii::t('app', 'Employee'),
-                'value' => function ($model) {
-                    /** @var \app\models\Holiday $model */
-                    return $model->user->userProfile->getFullName();
-                }
-            ],
-            [
-                'attribute' => 'status',
-                'value' => function ($model) {
-                    /** @var \app\models\Holiday $model */
-                    return $model->getStatusText();
-                }
-            ],
-            'days',
-        ],
-        'attributes' => [
-            'created_at:datetime',
-            'updated_at:datetime',
-            'confirmed_at:datetime',
-            [
-                'attribute' => 'created_by',
-                'value' => function ($model) {
-                    /** @var \app\models\Holiday $model */
-                    return $model->createdBy->userProfile->getFullName();
-                }
-            ],
-            [
-                'attribute' => 'updated_by',
-                'label' => Yii::t('app', 'Modified by'),
-                'value' => function ($model) {
-                    /** @var \app\models\Holiday $model */
-                    return $model->updatedBy->userProfile->getFullName();
-                }
-            ],
-            [
-                'attribute' => 'confirmed_by',
-                'value' => function ($model) {
-                    /** @var \app\models\Holiday $model */
-                    return isset($model->confirmedBy) ? $model->confirmedBy->userProfile->getFullName() : null;
-                }
-            ],
-        ]
-    ]) ?>
+
+
+<div class="col-md-8">
+    <div class="row">
+        <div class="col-sm-6 holiday-panel">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td><?php echo Yii::t('app', 'Created At') ?></td>
+                    <td><?php echo Yii::$app->formatter->asDatetime($model->created_at) ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo Yii::t('app', 'Updated At') ?></td>
+                    <td><?php echo Yii::$app->formatter->asDatetime($model->updated_at) ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo Yii::t('app', 'Reviewed At') ?></td>
+                    <td><?php echo Yii::$app->formatter->asDatetime($model->confirmed_at) ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo Yii::t('app', 'Created By') ?></td>
+                    <td><?php echo $model->createdBy->userProfile->getFullName() ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo Yii::t('app', 'Modified By') ?></td>
+                    <td><?php echo $model->updatedBy->userProfile->getFullName() ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo Yii::t('app', 'Reviewed By') ?></td>
+                    <td><?php echo $model->confirmedBy->userProfile->getFullName() ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6 holiday-panel">
+
+            <?php echo $this->render('@app/views/holiday/_view_types/_' . $model->getViewName(), ['model' => $model]); ?>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .holiday-panel .table > tbody > tr > td {
+        border-top: none;
+        font-style: italic;
+
+    }
+    .holiday-panel {
+        margin: 0;
+        border: 1px solid #ddd;
+    }
+</style>

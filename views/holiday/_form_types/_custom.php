@@ -10,7 +10,7 @@ use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget;
 
 ?>
-
+<?php  $disabled = false;?>
 <div class="row">
     <div class="col-md-4">
         <?php echo $form->field($model, 'title')->textInput() ?>
@@ -24,6 +24,7 @@ use trntv\yii\datetime\DateTimeWidget;
             'attribute' => 'start_date',
             'phpDatetimeFormat' => "yyyy-MM-dd",
             'momentDatetimeFormat' => 'YYYY-MM-DD',
+            'options' => ['disabled' => $disabled]
         ]) ?>
     </div>
     <div class="col-md-4">
@@ -33,6 +34,7 @@ use trntv\yii\datetime\DateTimeWidget;
             'attribute' => 'end_date',
             'phpDatetimeFormat' => "yyyy-MM-dd",
             'momentDatetimeFormat' => 'YYYY-MM-DD',
+            'options' => ['disabled' => $disabled]
         ]) ?>
     </div>
 </div>

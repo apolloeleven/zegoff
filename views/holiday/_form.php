@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
         <?php echo $form->field($model, 'user_id')->hiddenInput(['value' => Yii::$app->user->id])->label(false) ?>
 
-        <?php echo $this->render('@app/views/holiday/_form_types/_' . $model->getViewName(), ['form' => $form, 'model' => $model]) ?>
+        <?php echo $this->render('@app/views/holiday/_form_types/_' . $model->getViewName(), ['form' => $form, 'model' => $model,'disabled' => false]) ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
