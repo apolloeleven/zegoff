@@ -62,9 +62,9 @@ class RequestController extends \yii\web\Controller
         $user = Yii::$app->user->identity;
         $model = $this->findAllModelExceptOwn($id);
 
-        if ($user->position != User::POSITION_HR && $user->department_id != $model->user->department_id) {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-        }
+//        if ($user->position != User::POSITION_HR && $user->department_id != $model->user->department_id) {
+//            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+//        }
 
         return $this->render('view', [
             'model' => $model,

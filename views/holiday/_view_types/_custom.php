@@ -11,32 +11,11 @@ use yii\widgets\DetailView; ?>
 
 <?= DetailView::widget([
     'model' => $model,
-    'attributes' => array_merge($attributes, [
-        'id',
-        'user_id',
-        'type',
-        'status',
+    'options' => ['class' => 'table detail-view', 'style' => ' border-top: none; font-family: sans-serif;padding: 0 16px;font-style: italic;font-size: 16px;'],
+    'attributes' => array_merge(array_merge($main_attributes, [
         'title',
-        'start_date',
-        'end_date',
         'description:ntext',
-        'going_to',
-        'trip_reason:ntext',
-        'travel_coast',
-        'income',
-        'accommodation:ntext',
-        'client_entertainment:ntext',
-        'currency_code',
-        'date_require',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'confirmed_at',
-        'created_by',
-        'updated_by',
-        'deleted_by',
-        'confirmed_by',
-    ]),
+    ]), $attributes),
 ]) ?>
 
 

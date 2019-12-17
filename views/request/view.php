@@ -18,6 +18,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php $form = ActiveForm::begin(  [
+        'fieldConfig' => ['inputOptions' => ['class' => 'form-control input-sm' ,'disabled' => true]],
+    ]); ?>
+
+    <?php echo $this->render('@app/views/holiday/_form_types/_' . $model->getViewName(), ['form' => $form, 'model' => $model]) ?>
+
+    <?php ActiveForm::end(); ?>
+
     <?php echo $this->render('@app/views/holiday/_view_types/_default',
         [
             'model' => $model,
