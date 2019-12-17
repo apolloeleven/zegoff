@@ -34,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'grid-view table-responsive'
         ],
         'columns' => [
-            'id',
+            [
+                'attribute' => 'id',
+                'value' => 'id',
+                'contentOptions' => ['style' => 'width:80px; '],
+            ],
             [
                 'attribute' => 'fullName',
                 'value' => 'userProfile.fullName'

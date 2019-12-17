@@ -28,9 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'attribute' => 'id',
+                'value' => 'id',
+                'contentOptions' => ['style' => 'width:80px; '],
+            ],
             'name',
             [
                 'label' => Yii::t('app', 'Created By'),
