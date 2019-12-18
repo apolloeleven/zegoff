@@ -69,5 +69,23 @@
 </div>
 
 <style>
+    .holiday-panel .table {
+        margin: 8px 3px 8px 3px;
+    }
 
+    .holiday-panel .table > tbody > tr > td {
+        border-top: none;
+        padding: 1px;
+        font-style: italic;
+    }
+
+    .holiday-panel .table > tbody > tr .title {
+        font-style: normal;
+        font-weight: 600;
+    }
+
+    .holiday-panel {
+        margin: 0;
+        border: 1px solid #ddd;
+    }
 </style>
