@@ -10,7 +10,6 @@ use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget; ?>
 
 <?php echo $form->field($model, 'going_to')->textInput(['style' => 'width:300px']) ?>
-<?php  $disabled = false;?>
 <div class="row">
     <div class="col-md-4">
         <label><?php echo Yii::t('app', 'From Date') ?></label>
@@ -70,6 +69,7 @@ use trntv\yii\datetime\DateTimeWidget; ?>
             'attribute' => 'date_require',
             'phpDatetimeFormat' => "yyyy-MM-dd",
             'momentDatetimeFormat' => 'YYYY-MM-DD',
+            'options' => ['disabled' => $disabled]
         ]) ?>
     </div>
 </div>

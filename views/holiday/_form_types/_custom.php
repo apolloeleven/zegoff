@@ -10,7 +10,6 @@ use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget;
 
 ?>
-<?php  $disabled = false;?>
 <div class="row">
     <div class="col-md-4">
         <?php echo $form->field($model, 'title')->textInput() ?>

@@ -8,20 +8,20 @@
  * @var $attributes array
  * @var $main_attributes array
  */
+?>
 
-use yii\widgets\DetailView; ?>
 
+<tr>
+    <td class="title"><?php echo Yii::t('app', 'ID') ?></td>
+    <td><?php echo $model->id ?></td>
+</tr>
+<tr>
+    <td class="title"><?php echo Yii::t('app', 'Type') ?></td>
+    <td><?php echo $model->getTypeText() ?></td>
+</tr>
+<tr>
+    <td class="title"><?php echo Yii::t('app', 'Status') ?></td>
+    <td><?php echo $model->getStatusText() ?></td>
+</tr>
 
-<table class="table">
-    <tbody>
-    <tr>
-        <td><?php echo Yii::t('app', 'Title') ?></td>
-        <td><?php echo $model->title ?></td>
-    </tr>
-    <tr>
-        <td><?php echo Yii::t('app', 'Description') ?></td>
-        <td><?php echo Yii::$app->formatter->asNtext($model->description) ?></td>
-    </tr>
-    </tbody>
-</table>
 

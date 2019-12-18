@@ -33,11 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<?php if ($model->status == 0): ?>
-    <form class="form-horizontal" action="<?php echo \yii\helpers\Url::to(['request/confirm']) ?>" method="post">
+<?php /*if ($model->status == 0): */?><!--
+    <form class="form-horizontal" action="<?php /*echo \yii\helpers\Url::to(['request/confirm']) */?>" method="post">
         <div style="margin-left: 10px">
-            <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>"
-                   value="<?= Yii::$app->request->csrfToken; ?>"/>
+            <input type="hidden" name="<?/*= Yii::$app->request->csrfParam; */?>"
+                   value="<?/*= Yii::$app->request->csrfToken; */?>"/>
             <div class="form-group field-holiday-type">
                 <label class="control-label"><h4>Reject/Approve</h4></label>
                 <div id="holiday-type" aria-invalid="false">
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-            <input type="hidden" value="<?= Html::encode($model->id) ?>" name="id">
+            <input type="hidden" value="<?/*= Html::encode($model->id) */?>" name="id">
             <div class="form-group">
                 <div style="margin-top: 15px">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </form>
-<?php endif; ?>
+--><?php /*endif; */?>
 
 
 <?php
