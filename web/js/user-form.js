@@ -1,35 +1,27 @@
-const firstname = document.querySelector('#firstname');
-const lastname = document.querySelector('#lastname');
-const username = document.querySelector('#username');
+const firstName = document.querySelector('#firstName');
+const lastName = document.querySelector('#lastName');
+const userName = document.querySelector('#userName');
 
-firstname.addEventListener('input', updateFirst);
-lastname.addEventListener('input', updateLast);
+if (firstName) {
+    firstName.addEventListener('input', autoFill);
+}
+if (lastName) {
+    lastName.addEventListener('input', autoFill);
+}
 
-function updateFirst(e) {
-    let firstNameValue = e.target.value.toLowerCase().replace(/\s/g, '');
-    let lastNameValue = username.value.split(".");
-    firstNameValue = firstNameValue.replace(/\./g, '');
+function autoFill() {
+    let lastNameValue = lastName.value.toLowerCase().replace(/\s/g, '');
+    let firstNameValue = firstName.value.toLowerCase().replace(/\s/g, '');
 
-    if (lastNameValue[1]) {
-        lastNameValue[1] = `.${lastNameValue[1]}`;
-        username.value = `${firstNameValue}${lastNameValue[1]}`;
+    if (lastNameValue && firstNameValue) {
+        userName.value = `${firstNameValue}.${lastNameValue}`;
+    } else if (firstNameValue) {
+        userName.value = `${firstNameValue}`;
+    } else if (lastNameValue) {
+        userName.value = `.${lastNameValue}`;
     } else {
-        username.value = firstNameValue;
+        userName.value = null;
     }
 }
 
-function updateLast(e) {
-    let lastNameValue = e.target.value.toLowerCase().replace(/\s/g, '');
-    let firstNameValue = firstname.value.toLowerCase().replace(/\s/g, '');
-    lastNameValue = lastNameValue.replace(/\./g, '');
-    lastNameValue = `.${lastNameValue}`;
-    firstNameValue = firstNameValue.replace(/\./g, '');
-    username.value = '';
-    console.log(e.target.value && e.target.value)
-    if (e.target.value.length === 0) {
-        username.value = `${firstNameValue}`
-    } else {
-        username.value = `${firstNameValue}${lastNameValue}`;
-    }
 
-}
