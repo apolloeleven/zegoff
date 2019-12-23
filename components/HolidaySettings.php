@@ -18,9 +18,9 @@ class HolidaySettings extends Component
      * @var array manages holiday color by type on the calendar scheduler.
      */
     public $calendarColor = [
-        Holiday::TYPE_PERSONAL => '#389638',
-        Holiday::TYPE_BUSINESS => '#b93224',
-        Holiday::TYPE_CUSTOM => '#4d8dca'
+        Holiday::TYPE_PERSONAL => '#63c598',
+        Holiday::TYPE_BUSINESS => '#ea7569',
+        Holiday::TYPE_CUSTOM => '#ecc262'
     ];
 
     public $customHolidayName = 'Custom';
