@@ -26,7 +26,7 @@ class UserController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [User::ROLE_MANAGER, User::ROLE_ADMINISTRATOR],
+                        'roles' => [User::ROLE_MANAGER],
                     ],
                 ],
             ],
