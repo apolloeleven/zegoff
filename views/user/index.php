@@ -60,13 +60,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => EnumColumn::class,
                 'attribute' => 'status',
                 'contentOptions' => function ($model) {
-                    // user status 1 == not active, 2 == active, 3 === deleted
                     if ($model->status == 1) {
-                        return ['style' => 'color: #FFA500;'];
+                        return ['style' => 'color: #ffa50096;  font-weight: 550;'];
                     } else if ($model->status == 2) {
-                        return ['style' => 'color: green;'];
+                        return ['style' => 'color: #008000a3;     font-weight: 550;)'];
                     } else {
-                        return ['style' => 'color: red;'];
+                        return ['style' => 'color: #ff0000a1; font-weight: 550;'];
                     }
                 },
                 'enum' => User::statuses(),

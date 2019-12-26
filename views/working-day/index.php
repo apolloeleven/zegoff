@@ -28,13 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'start_at',
                 'value' => function ($model) {
-                    return Yii::$app->formatter->asTime($model->start_at, 'H:mm');
+                    return Yii::$app->formatter->asTime($model->start_at, 'HH:mm');
                 }
             ],
             [
                 'attribute' => 'end_at',
                 'value' => function ($model) {
-                    return Yii::$app->formatter->asTime($model->end_at, 'H:mm');
+                    return Yii::$app->formatter->asTime($model->end_at, 'HH:mm');
                 }
             ],
 
