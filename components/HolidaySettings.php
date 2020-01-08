@@ -24,7 +24,7 @@ class HolidaySettings extends Component
     public $calendarBackgroundColor = [
         Holiday::TYPE_PERSONAL => '#08bbbb4d',
         Holiday::TYPE_BUSINESS => '#ffd29b4d',
-        Holiday::TYPE_CUSTOM => '#ea7569'
+        Holiday::TYPE_CUSTOM => '#ea75694d'
     ];
 
     /**
