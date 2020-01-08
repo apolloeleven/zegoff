@@ -9,7 +9,18 @@
 use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget; ?>
 
-<?php echo $form->field($model, 'going_to')->textInput(['style' => 'width:300px']) ?>
+
+<div class="row">
+    <div class="col-md-4">
+        <?php echo $form->field($model, 'going_to')->textInput(['style' => 'width:300px']) ?>
+    </div>
+    <div class="col-md-2">
+        <?php if ($disabled): ?>
+            <?php  $model->status = $model->getStatusText()?>
+            <?php echo $form->field($model, 'status')->textInput(['style' => ($model->status == "Accepted") ? 'color: green !important;' : 'color: red !important;'])  ?>
+        <?php endif;?>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <label><?php echo Yii::t('app', 'From Date') ?></label>

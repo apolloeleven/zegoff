@@ -10,6 +10,5 @@ use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget;
 
 ?>
-<?php //echo $this->render('@app/views/holiday/_view_types/_business'); ?>
 
-<?php echo $this->render('@app/views/holiday/_form_types/_business', ['form' => $form, 'model' => $model, 'disabled' => false]) ?>
+<?php echo $this->render('@app/views/holiday/_form_types/_business', ['form' => $form, 'model' => $model, 'disabled' => $disabled ? $disabled : false]) ?>

@@ -12,31 +12,24 @@
 
 <div class="col-md-8">
     <div class="row">
-        <div class="col-sm-6 holiday-panel">
+        <div class="col-sm-12 holiday-panel">
             <table class="table">
                 <tbody>
                 <tr>
-                    <td class="title"><?php echo Yii::t('app', 'Created At') ?></td>
-                    <td><?php echo Yii::$app->formatter->asDatetime($model->created_at) ?></td>
+                    <td class="title col-md-3"><?php echo Yii::t('app', 'Created At') ?></td>
+                    <td class="col-md-4"><?php echo Yii::$app->formatter->asDatetime($model->created_at) ?></td>
+                    <td class="title col-md-3"><?php echo Yii::t('app', 'Created By') ?></td>
+                    <td class="col-md-2"><?php echo $model->createdBy->userProfile->getFullName() ?></td>
                 </tr>
                 <tr>
                     <td class="title"><?php echo Yii::t('app', 'Updated At') ?></td>
                     <td><?php echo Yii::$app->formatter->asDatetime($model->updated_at) ?></td>
+                    <td class="title"><?php echo Yii::t('app', 'Updated By') ?></td>
+                    <td><?php echo $model->updatedBy->userProfile->getFullName() ?></td>
                 </tr>
                 <tr> <?php if ($model->confirmed_at) : ?>
                         <td class="title"><?php echo Yii::t('app', 'Reviewed At') ?></td>
                         <td><?php echo Yii::$app->formatter->asDatetime($model->confirmed_at) ?></td>
-                    <?php endif; ?>
-                </tr>
-                <tr>
-                    <td class="title"><?php echo Yii::t('app', 'Created By') ?></td>
-                    <td><?php echo $model->createdBy->userProfile->getFullName() ?></td>
-                </tr>
-                <tr>
-                    <td class="title"><?php echo Yii::t('app', 'Modified By') ?></td>
-                    <td><?php echo $model->updatedBy->userProfile->getFullName() ?></td>
-                </tr>
-                <tr> <?php if ($model->confirmedBy) : ?>
                         <td class="title"><?php echo Yii::t('app', 'Reviewed By') ?></td>
                         <td><?php echo $model->confirmedBy->userProfile->getFullName() ?></td>
                     <?php endif; ?>
@@ -44,27 +37,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-6 holiday-panel">
-            <table class="table">
-                <tbody>
-                <tr>
-                    <td class="title"><?php echo Yii::t('app', 'ID') ?></td>
-                    <td><?php echo $model->id ?></td>
-                </tr>
-                <tr>
-                    <td class="title"><?php echo Yii::t('app', 'Type') ?></td>
-                    <td><?php echo $model->getTypeText() ?></td>
-                </tr>
-                <tr>
-                    <td class="title"><?php echo Yii::t('app', 'Status') ?></td>
-                    <td><?php echo $model->getStatusText() ?></td>
-                </tr>
-
-                </tbody>
-            </table>
-
-        </div>
-
     </div>
 </div>
 
