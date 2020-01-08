@@ -59,11 +59,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => function ($model) {
                     /** @var $model Holiday */
                     if ($model->getStatusText() == "Accepted") {
-                        return ['style' => 'color: #008000a3;     font-weight: 550;)'];
+                        return ['style' => 'color: green;font-weight: 550;'];
                     } else if ($model->getStatusText() == "Pending") {
-                        return ['style' => 'color: #ffa50096;  font-weight: 550;'];
+                        return ['style' => 'color: #FFA500;font-weight: 550;'];
                     } else {
-                        return ['style' => 'color: #ff0000a1; font-weight: 550;'];
+                        return ['style' => 'color: #ff0000ab;font-weight: 550;'];
                     }
                 },
                 'value' => function ($model) {

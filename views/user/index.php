@@ -60,7 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => EnumColumn::class,
                 'attribute' => 'status',
                 'contentOptions' => function ($model) {
-
                     if ($model->status == 1) {
                         return ['style' => 'color: #FFA500;font-weight: 550;'];
                     } else if ($model->status == 2) {
@@ -68,13 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     } else {
                         return ['style' => 'color: #ff0000ab;font-weight: 550;'];
                     }
-//                    if ($model->status == 1) {
-//                        return ['style' => 'color: #ffa50096;  font-weight: 550;'];
-//                    } else if ($model->status == 2) {
-//                        return ['style' => 'color: #008000a3;     font-weight: 550;)'];
-//                    } else {
-//                        return ['style' => 'color: #ff0000a1; font-weight: 550;'];
-//                    }
                 },
                 'enum' => User::statuses(),
                 'filter' => User::statuses()
