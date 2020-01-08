@@ -24,7 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'weekday',
 //            'week_index',
-            'is_working_day:boolean',
+            [
+                'attribute' => 'is_working_day',
+                'format' => 'raw',
+                'contentOptions' => ['style' => 'width:15%; '],
+                'value' => function ($model, $index, $widget) {
+                    return Html::checkbox('is_working_day[]', $model->is_working_day, ['class' => 'form-check-input', 'value' => $index, 'disabled' => true]);
+                },
+            ],
             [
                 'attribute' => 'start_at',
                 'value' => function ($model) {
