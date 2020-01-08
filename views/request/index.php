@@ -82,7 +82,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'start_date',
                 'value' => function ($model) {
-                    return $model->start_date;
+                    $date = Yii::$app->formatter->asDate($model->start_date);
+                    $time = Yii::$app->formatter->asTime($model->start_date,'HH:mm');
+                    return $date . " " .$time . " AM";
                 },
                 'label' => 'Date From',
                 'filter' => DateTimeWidget::widget([
@@ -98,7 +100,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'end_date',
                 'value' => function ($model) {
-                    return $model->end_date;
+                    $date = Yii::$app->formatter->asDate($model->end_date);
+                    $time = Yii::$app->formatter->asTime($model->end_date,'HH:mm');
+                    return $date . " " .$time . " AM";
                 },
                 'label' => 'Date To',
                 'filter' => DateTimeWidget::widget([

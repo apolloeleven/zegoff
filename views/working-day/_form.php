@@ -25,17 +25,18 @@ use yii\widgets\ActiveForm;
             <?php echo DateTimeWidget::widget([
                 'model' => $model,
                 'attribute' => 'start_at',
-                'phpDatetimeFormat' => "HH:mm:ss",
-                'momentDatetimeFormat' => 'HH:mm:ss',
+                'phpDatetimeFormat' => "HH:mm",
+                'momentDatetimeFormat' => 'HH:mm',
             ]) ?>
+
         </div>
         <div class="col-md-4">
             <label><?php echo Yii::t('app', 'End At') ?></label>
             <?php echo DateTimeWidget::widget([
                 'model' => $model,
                 'attribute' => 'end_at',
-                'phpDatetimeFormat' => "HH:mm:ss",
-                'momentDatetimeFormat' => 'HH:mm:ss',
+                'phpDatetimeFormat' => "HH:mm",
+                'momentDatetimeFormat' => 'HH:mm',
             ]) ?>
         </div>
     </div>
