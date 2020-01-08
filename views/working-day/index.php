@@ -21,7 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
 //        'filterModel' => $searchModel,
         'columns' => [
 
-            'id',
+            [
+                'attribute' => 'id',
+                'value' => 'id',
+                'contentOptions' => ['style' => 'width:80px; '],
+            ],
             'weekday',
 //            'week_index',
             [
