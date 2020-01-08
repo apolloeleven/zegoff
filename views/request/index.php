@@ -114,7 +114,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'days',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view}',
+                'template' => '{view},{delete}',
+                'visibleButtons' => [
+                    'delete' => function ($model, $key, $index) {
+                        if (Yii::$app->user->identity->position == User::POSITION_HR || Yii::$app->user->can('administrator')) {
+                            return true;
+                        }
+                        return false;
+
+                    }
+                ]
             ],
         ],
     ]); ?>
