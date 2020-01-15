@@ -73,9 +73,8 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        //todo pass user specific roles
-        $userRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
-        $userRoleName = array_keys($userRoles);
+
+        Yii::$app->authManager->checkAccess(Yii::$app->user->getId(), 'administrator') ? $userRoleName = 'administrator' : $userRoleName = 'manager';
 
         $model = new UserForm();
         $model->setScenario('create');
@@ -85,7 +84,7 @@ class UserController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getChildRoles($userRoleName[0]), 'name', 'name')
+            'roles' => ArrayHelper::map(Yii::$app->authManager->getChildRoles($userRoleName), 'name', 'name')
         ]);
     }
 
@@ -98,6 +97,9 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        Yii::$app->authManager->checkAccess(Yii::$app->user->getId(), 'administrator') ? $userRoleName = 'administrator' : $userRoleName = 'manager';
+
+
         $model = new UserForm();
         $model->setModel($this->findModel($id));
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -106,7 +108,7 @@ class UserController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
+            'roles' => ArrayHelper::map(Yii::$app->authManager->getChildRoles($userRoleName), 'name', 'name')
         ]);
     }
 
