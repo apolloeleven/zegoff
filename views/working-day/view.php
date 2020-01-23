@@ -26,8 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'weekday',
             'week_index',
             'is_working_day',
-            'start_at',
-            'end_at',
+            [
+                'attribute' => 'start_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asTime($model->start_at, 'HH:mm');
+                }
+            ],
+            [
+                'attribute' => 'end_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asTime($model->end_at, 'HH:mm');
+                }
+            ],
         ],
     ]) ?>
 

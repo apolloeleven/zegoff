@@ -69,7 +69,7 @@ class BankHolidaySearch extends BankHoliday
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            BankHoliday::tableName() . '.id' => $this->id,
             'date' => $this->date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

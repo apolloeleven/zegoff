@@ -32,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'id',
+                'value' => 'id',
+                'contentOptions' => ['style' => 'width:80px; '],
+            ],
             [
                 'attribute' => 'employee',
                 'value' => function ($model) {
@@ -52,6 +56,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'filter' => Holiday::statuses(),
+                'contentOptions' => function ($model) {
+                    /** @var $model Holiday */
+                    if ($model->getStatusText() == "Accepted") {
+                        return ['style' => 'color: green;font-weight: 550;'];
+                    } else if ($model->getStatusText() == "Pending") {
+                        return ['style' => 'color: #FFA500;font-weight: 550;'];
+                    } else {
+                        return ['style' => 'color: #ff0000ab;font-weight: 550;'];
+                    }
+                },
                 'value' => function ($model) {
                     /** @var $model Holiday */
                     return $model->getStatusText();
@@ -68,7 +82,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'start_date',
                 'value' => function ($model) {
-                    return $model->start_date;
+                    $date = Yii::$app->formatter->asDate($model->start_date);
+                    $time = Yii::$app->formatter->asTime($model->start_date,'HH:mm');
+                    return $date . " " .$time . " AM";
                 },
                 'label' => 'Date From',
                 'filter' => DateTimeWidget::widget([
@@ -84,7 +100,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'end_date',
                 'value' => function ($model) {
-                    return $model->end_date;
+                    $date = Yii::$app->formatter->asDate($model->end_date);
+                    $time = Yii::$app->formatter->asTime($model->end_date,'HH:mm');
+                    return $date . " " .$time . " AM";
                 },
                 'label' => 'Date To',
                 'filter' => DateTimeWidget::widget([
@@ -100,7 +118,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'days',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view}',
+                'template' => '{view},{delete}',
+                'visibleButtons' => [
+                    'delete' => function ($model, $key, $index) {
+                        if (Yii::$app->user->identity->position == User::POSITION_HR || Yii::$app->user->can('administrator')) {
+                            return true;
+                        }
+                        return false;
+
+                    }
+                ]
             ],
         ],
     ]); ?>

@@ -18,7 +18,7 @@ class UserSearch extends User
 {
     public function attributes()
     {
-        return ['id', 'fullName', 'username', 'email', 'status', 'created_at', 'updated_at', 'logged_at', 'position'];
+        return ['id', 'fullName', 'department_id', 'username', 'email', 'status', 'created_at', 'updated_at', 'logged_at', 'position'];
     }
 
     /**
@@ -27,10 +27,11 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'status', 'position'], 'integer'],
-            [['created_at', 'updated_at', 'logged_at'], 'filter', 'filter' => 'strtotime', 'skipOnEmpty' => true],
-            [['created_at', 'updated_at', 'logged_at'], 'default', 'value' => null],
+            [['id', 'status', 'position', 'department_id'], 'integer'],
+            [['updated_at', 'logged_at'], 'filter', 'filter' => 'strtotime', 'skipOnEmpty' => true],
+            [['updated_at', 'logged_at'], 'default', 'value' => null],
             [['fullName', 'username', 'auth_key', 'password_hash', 'email'], 'safe'],
+            [['created_at'], 'string'],
         ];
     }
 
@@ -62,21 +63,27 @@ class UserSearch extends User
             'desc' => ["CONCAT(up.firstname, ' ', up.lastname)" => SORT_DESC],
         ];
 
-        if (!( $this->load($params) && $this->validate() )) {
+
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
+
         $query->andFilterWhere([
-            'id' => $this->id,
+            'up.id' => $this->id,
             'position' => $this->position,
             'status' => $this->status,
+            'department_id' => $this->department_id
         ]);
 
-        if ($this->created_at !== null) {
-            $query->andFilterWhere(['between', 'created_at', $this->created_at, $this->created_at + 3600 * 24]);
+        if ($this->created_at) {
+
+            $query->andFilterWhere([
+                'FROM_UNIXTIME(created_at, "%Y-%m-%d")' => $this->created_at
+            ]);
         }
 
-        if ($this->updated_at !== null) {
+        if ($this->updated_at) {
             $query->andFilterWhere(['between', 'updated_at', $this->updated_at, $this->updated_at + 3600 * 24]);
         }
 

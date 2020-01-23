@@ -22,11 +22,11 @@ use yii\bootstrap\ActiveForm;
             <?php $form = ActiveForm::begin() ?>
             <div class="row">
                 <div class="col-md-3">
-                    <?php echo $form->field($model, 'firstname') ?>
+                    <?php echo $form->field($model, 'firstname')->textInput(['id' => 'firstName']) ?>
 
                 </div>
                 <div class="col-md-3">
-                    <?php echo $form->field($model, 'lastname') ?>
+                    <?php echo $form->field($model, 'lastname')->textInput(['id' => 'lastName']) ?>
                 </div>
             </div>
 
@@ -43,7 +43,7 @@ use yii\bootstrap\ActiveForm;
 
             <div class="row">
                 <div class="col-md-3">
-                    <?php echo $form->field($model, 'username') ?>
+                    <?php echo $form->field($model, 'username')->textInput(['id' => 'userName']) ?>
 
                 </div>
                 <div class="col-md-3">

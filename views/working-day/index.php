@@ -20,14 +20,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            [
+                'attribute' => 'id',
+                'value' => 'id',
+                'contentOptions' => ['style' => 'width:80px; '],
+            ],
             'weekday',
 //            'week_index',
-            'is_working_day:boolean',
-            'start_at',
-            'end_at',
+            [
+                'attribute' => 'is_working_day',
+                'format' => 'raw',
+                'contentOptions' => ['style' => 'width:15%; '],
+                'value' => function ($model, $index, $widget) {
+                    return Html::checkbox('is_working_day[]', $model->is_working_day, ['class' => 'form-check-input', 'value' => $index, 'disabled' => true]);
+                },
+            ],
+            [
+                'attribute' => 'start_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asTime($model->start_at, 'HH:mm');
+                }
+            ],
+            [
+                'attribute' => 'end_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asTime($model->end_at, 'HH:mm');
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

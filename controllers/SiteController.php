@@ -74,19 +74,20 @@ class SiteController extends Controller
             ->andWhere(['<=', Holiday::tableName() . '.start_date', \Yii::$app->request->get('end')])
             ->all();
         foreach ($times AS $time) {
-            try{
+            try {
                 $event = new Event();
                 $event->id = $time->id;
-                $event->backgroundColor = \Yii::$app->holidaySettings->getColorByType($time->type);
-                $event->borderColor = \Yii::$app->holidaySettings->getColorByType($time->type);
+                $event->backgroundColor = \Yii::$app->holidaySettings->getBackgroundColorByType($time->type);
+                $event->borderColor = \Yii::$app->holidaySettings->getBorderColorByType($time->type);
+                $event->textColor = \Yii::$app->holidaySettings->getTextColor();
                 $event->title = $time->user->userProfile->getFullName();
                 $event->start = date('Y-m-d\TH:i:s\Z', strtotime($time->start_date));
                 $event->end = date('Y-m-d\TH:i:s\Z', strtotime($time->end_date));
                 $events[] = $event;
-            }catch (\Exception $e){
-                 echo '<pre>';
-                 var_dump($e);
-                 exit;
+            } catch (\Exception $e) {
+                echo '<pre>';
+                var_dump($e);
+                exit;
             }
 
         }

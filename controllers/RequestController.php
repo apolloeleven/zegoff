@@ -24,6 +24,17 @@ class RequestController extends \yii\web\Controller
                         'roles' => [User::ROLE_MANAGER],
                         'actions' => ['index', 'view', 'confirm']
                     ],
+                    [
+                        'actions' => ['delete',],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            if (Yii::$app->user->identity->position == User::POSITION_HR || Yii::$app->user->can('administrator')) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    ],
                 ],
             ],
             'verbs' => [
@@ -62,14 +73,23 @@ class RequestController extends \yii\web\Controller
         $user = Yii::$app->user->identity;
         $model = $this->findAllModelExceptOwn($id);
 
-        if ($user->position != User::POSITION_HR && $user->department_id != $model->user->department_id) {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-        }
+//        if ($user->position != User::POSITION_HR && $user->department_id != $model->user->department_id) {
+//            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+//        }
 
         return $this->render('view', [
             'model' => $model,
         ]);
     }
+
+    public function actionDelete($id)
+    {
+
+        $this->findModel($id)->delete();
+        return $this->redirect(['index']);
+
+    }
+
 
     /**
      * @return string|\yii\web\Response
@@ -110,6 +130,22 @@ class RequestController extends \yii\web\Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Holiday the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Holiday::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
 }

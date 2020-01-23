@@ -21,9 +21,10 @@ class DepartmentSearch extends Department
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name'], 'safe'],
+            [['id', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['name','created_at'], 'safe'],
             [['creator'], 'safe'],
+
         ];
     }
 
@@ -68,12 +69,18 @@ class DepartmentSearch extends Department
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
+            'department.id' => $this->id,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
         ]);
+
+        if ($this->created_at) {
+
+            $query->andFilterWhere([
+                'FROM_UNIXTIME(department.created_at, "%Y-%m-%d")' => $this->created_at
+            ]);
+        }
 
         $query->andFilterWhere(['like', 'name', $this->name]);
         if ($this->creator) {

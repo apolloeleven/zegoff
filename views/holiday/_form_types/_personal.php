@@ -10,10 +10,15 @@ use app\models\Holiday;
 use trntv\yii\datetime\DateTimeWidget;
 
 ?>
-
 <div class="row">
     <div class="col-md-4">
         <?php echo $form->field($model, 'title')->textInput() ?>
+    </div>
+    <div class="col-md-2">
+        <?php if ($disabled): ?>
+        <?php  $model->status = $model->getStatusText()?>
+        <?php echo $form->field($model, 'status')->textInput(['style' => ($model-> status == "Accepted") ? 'color: green !important;' : 'color: red !important;'])  ?>
+        <?php endif;?>
     </div>
 </div>
 <div class="row">
@@ -24,6 +29,7 @@ use trntv\yii\datetime\DateTimeWidget;
             'attribute' => 'start_date',
             'phpDatetimeFormat' => "yyyy-MM-dd",
             'momentDatetimeFormat' => 'YYYY-MM-DD',
+            'options' => ['disabled' => $disabled]
         ]) ?>
     </div>
     <div class="col-md-4">
@@ -33,6 +39,7 @@ use trntv\yii\datetime\DateTimeWidget;
             'attribute' => 'end_date',
             'phpDatetimeFormat' => "yyyy-MM-dd",
             'momentDatetimeFormat' => 'YYYY-MM-DD',
+            'options' => ['disabled' => $disabled]
         ]) ?>
     </div>
 </div>

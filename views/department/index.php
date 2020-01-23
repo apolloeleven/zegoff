@@ -1,7 +1,9 @@
 <?php
 
+use trntv\yii\datetime\DateTimeWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\JsExpression;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -26,9 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'attribute' => 'id',
+                'value' => 'id',
+                'contentOptions' => ['style' => 'width:80px; '],
+            ],
             'name',
             [
                 'label' => Yii::t('app', 'Created By'),
@@ -37,6 +41,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     /* @var $model app\models\Department */
                     return $model->creator->userProfile->getFullName();
                 }
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->created_at);
+                },
+                'label' => 'Created at',
+                'filter' => DateTimeWidget::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'phpDatetimeFormat' => "yyyy-MM-dd",
+                    'momentDatetimeFormat' => 'YYYY-MM-DD',
+                    'clientEvents' => [
+                        'dp.change' => new JsExpression('(e) => $(e.target).find("input").trigger("change.yiiGridView")')
+                    ],
+                ])
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
